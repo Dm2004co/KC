@@ -1,0 +1,9 @@
+KC : 
+- Dessiner un graphe 
+
+    - Requetes  : 
+1 : Comment dessiner un graphe sur c# avec la classe drawing ?
+2 : Comment dessiner un graphe sur c# avec la classe skiasharp et comment l'ajouter ?
+3 : Où  se trouve l evenement paint ?
+4 : Comment mettre de la couleur sur  un noeud avec la classe drawing ?
+
