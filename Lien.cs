@@ -20,8 +20,8 @@ namespace KC
         /// </summary>
         public Lien()
         {
-            this.orientation = true;
-            this.ponderation = true;
+            this.orientation = false;
+            this.ponderation = false;
         }
         /// <summary>
         /// Propirete d'une arete

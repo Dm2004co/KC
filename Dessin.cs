@@ -11,7 +11,7 @@ namespace KC
     internal class Dessin
     {
       static Graphe g = new Graphe();
-         static Random p = new Random();
+      static Random p = new Random();
         public Dessin ()
         {
             Visualisation();

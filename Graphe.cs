@@ -36,6 +36,9 @@ namespace KC
         bool orientation = false;
         bool ponderation = false;
         int niv = 0;
+        /// <summary>
+        /// Constructeur naturel d'un Graphe
+        /// </summary>
         public Graphe()
         {
             this.orientation = Orientation();
@@ -56,14 +59,14 @@ namespace KC
 
         }
         /// <summary>
-        /// Ponderation des aretes(arcs)
+        ///  Propriete de la Ponderation des aretes(arcs)
         /// </summary>
         public bool Ponderation_Arc
         {
             get { return this.ponderation; }
         }
         /// <summary>
-        /// Orientation des aretes(arcs)
+        /// Propriete de l'Orientation des aretes(arcs)
         /// </summary>
         public bool Orientation_Arc
         {
@@ -84,7 +87,7 @@ namespace KC
             get { return this.matrice_incidence;}
         }
         /// <summary>
-        /// Liste des aretes du graphe
+        /// Liste des aretes(arc) du graphe
         /// </summary>
         public List<(int, int)> AreteList
         {
@@ -110,7 +113,6 @@ namespace KC
         /// <summary>
         /// Presence uniquement d'arete simple
         /// </summary>
-       
         public bool Simple
         {
             get { return simple; }
@@ -127,14 +129,14 @@ namespace KC
         /// </summary>
         
         /// <summary>
-        /// Propriete du graphe 
+        /// Presence d'un graphe NP connexe et  K-regulier  
         /// </summary>
         public bool Complet
         {
             get { return complet; }
         }
         /// <summary>
-        /// Propriete d'un sommet 
+        /// Egalite des degres des Noeuds d'un Graphe
         /// </summary>
         public bool Regulier
         { 
@@ -149,11 +151,12 @@ namespace KC
             set { this.succ = value; }
         }
         /// <summary>
-        /// Propriete de la liste des Predecesseurs
+        /// Propriete de la Liste des Predecesseurs
         /// </summary>
         public SortedList<int, List<int>> Pred
         {
             get { return this.pred; }
+            set { this.pred = value;  }
         }
         /// <summary>
         /// Presence de deux sous-ensembles liés entre-eux
@@ -170,7 +173,7 @@ namespace KC
             get { return this.niveau; }
         }
         /// <summary>
-        /// Listes des Noeurs du graphe
+        /// Listes des Noeuds du graphe
         /// </summary>
         public List<Noeud> Noeuds
         {
@@ -207,7 +210,7 @@ namespace KC
             get { return this.degre; }
         }
         /// <summary>
-        /// Affichage des niveaux des sommets
+        /// Affichage des niveaux des sommets(Noeuds)
         /// </summary>
         /// <param name="Niv"></param>
         public void Affichage_Niveau(List<int> Niv)
@@ -261,8 +264,6 @@ namespace KC
         /// <summary>
         /// Creation de la matrice d'adjacence
         /// </summary>
-        /// <param name="sommet"></param>
-        /// <param name="AreteList"></param>
         /// <returns></returns>
         public int[,] Matrice()
         { 
@@ -347,7 +348,11 @@ namespace KC
             return m;
         }
 
-
+        /// <summary>
+        /// Couplage des aretes à un un sommet
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public int Exist_Incidence(int s)
         {
             foreach (var arete in AreteList)
@@ -367,7 +372,10 @@ namespace KC
           
         }
 
-       
+       /// <summary>
+       /// Affichage de la matrice d'incidence
+       /// </summary>
+       /// <param name="m"></param>
         public void Afficher_Incidence(int[,] m)
         {
 
@@ -394,7 +402,11 @@ namespace KC
             }
         }
         
-
+        /// <summary>
+        /// Permutation entre deux object de meme type
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         public void Permutation(object a ,object b)
         {
             object temp = new object();
@@ -464,7 +476,7 @@ namespace KC
 
 
         /// <summary>
-        /// Parcours en profondeur ou Deep Fisrt Search
+        /// Parcours en profondeur ou Deep First Search
         /// </summary>
         /// <param name="depart"></param>
         /// <returns></returns>
@@ -479,6 +491,7 @@ namespace KC
               
                 depart.Couleur = Color.Yellow;
                 depart.date_Dec = depart.Decouverte();
+                depart.Degre = depart.Calcul_Degre(); ;
                 Console.WriteLine($"Debut d'exploration de  : {depart.Sommet}");
                 Noeud_v.Add(depart);
                 Console.WriteLine($"Noeud :{depart.Sommet} , visité");
@@ -489,6 +502,7 @@ namespace KC
                 while (DFS.Count > 0)
                 {
                     Noeud y = DFS.Pop();
+                    y.Degre = y.Calcul_Degre();
                     y.Couleur = Color.Red;
                     y.date_Fin = y.Fin();
                     Console.WriteLine($"Fin d'exploration de : {y.Sommet}");
@@ -503,7 +517,7 @@ namespace KC
 
                                     Noeud voisin = new Noeud(voisinage);
                                     voisin.Niveau = y.Niveau + 1 ;
-                                    //voisin.Degre = voisin.Calcul_Degre();
+                                    voisin.Degre = voisin.Calcul_Degre();
                                     for (int i = 0; i < Noeud_v.Count; i++)
                                       {
 
@@ -569,7 +583,11 @@ namespace KC
             Console.WriteLine($"L'ordre de visite : {orden}");
         }
 
-
+        /// <summary>
+        /// Parcours en profondeur ou Deep First Search
+        /// </summary>
+        /// <param name="depart"></param>
+        /// <returns></returns>
         public List<Noeud> DFS_Noeud(Noeud depart)
         {
             Stack<Noeud> DFS = new Stack<Noeud>();
@@ -581,6 +599,7 @@ namespace KC
 
                 depart.Couleur = Color.Yellow;
                 depart.date_Dec = depart.Decouverte();
+                depart.Degre = depart.Calcul_Degre();
                 Console.WriteLine($"Debut d'exploration de  : {depart.Sommet}");
                 Noeud_v.Add(depart);
                 Console.WriteLine($"Noeud :{depart.Sommet} , visité");
@@ -591,6 +610,7 @@ namespace KC
                 while (DFS.Count > 0)
                 {
                     Noeud y = DFS.Pop();
+                    y.Degre = y.Calcul_Degre();
                     y.Couleur = Color.Red;
                     y.date_Fin = y.Fin();
                     Console.WriteLine($"Fin d'exploration de : {y.Sommet}");
@@ -605,6 +625,7 @@ namespace KC
 
                                     Noeud voisin = new Noeud(voisinage);
                                     voisin.Niveau = y.Niveau + 1;
+                                    voisin.Degre = voisin.Calcul_Degre();
                                     for (int i = 0; i < Noeud_v.Count; i++)
                                     {
 
@@ -655,7 +676,10 @@ namespace KC
         }
 
 
-
+        /// <summary>
+        /// Affichage d'une DFS en fonction des Noeuds
+        /// </summary>
+        /// <param name="DFS"></param>
         public void Affichage_Ordre_DFS_Noeud(List<Noeud> DFS)
         {
             Console.WriteLine();
@@ -665,12 +689,12 @@ namespace KC
                 
              for(int i = 0; i < 7; i++)
                 {
-                    orden[0] = Convert.ToString(n.Sommet);
+                    orden[0] = Convert.ToString($"Sommet = {n.Sommet}");
                     orden[1] = Convert.ToString(n.Couleur);
                     orden[2] = Convert.ToString(n.date_Dec);
                     orden[3] = Convert.ToString(n.date_Fin);
-                    orden[4] = Convert.ToString(n.Niveau);
-                    orden[5] = Convert.ToString(n.Degre);
+                    orden[4] = Convert.ToString($"Niveau = {n.Niveau}");
+                    orden[5] = Convert.ToString($"Degre = {n.Degre}");
                     orden[6] = Convert.ToString(n.Pred);
 
                     
@@ -878,7 +902,7 @@ namespace KC
 
               
          /// <summary>
-         /// Presence d'un Cycle
+         /// Presence d'un Cycle(Circuit) avec exemple si possible
          /// </summary>
          /// <param name="depart"></param>
          /// <param name="arrivee"></param>
@@ -973,7 +997,10 @@ namespace KC
             return (c,Cir);
 
         }
-
+        /// <summary>
+        /// Affichage d'un circuit(cycle)
+        /// </summary>
+        /// <param name="C"></param>
         public void Affichage_Ordre_Circuit((bool,List<int> Cycle)C)
         {
             string orden = "";
@@ -993,7 +1020,7 @@ namespace KC
         /// <param name="a"></param>
         /// <returns></returns>
 
-
+        
         public List<int[]> Composantes_Connexe()
         {
             
@@ -1048,7 +1075,12 @@ namespace KC
         }
             
         
-
+        /// <summary>
+        /// Existence d'un chemin entre deux Noeuds
+        /// </summary>
+        /// <param name="depart"></param>
+        /// <param name="arrivee"></param>
+        /// <returns></returns>
         public List <int> Chemin(Noeud depart, Noeud arrivee)
         {
             List<int> chemin = BFS(depart, arrivee);
@@ -1141,20 +1173,11 @@ namespace KC
             }
         }
 
-        public List<int> Niv()
-        {
-            List<int> list = new List<int>(Sommet.Count);
-            for(int  j = 0; j < Sommet.Count;j++)
-            {
-                Noeud n = new Noeud(Sommet[j]);
-                for(int  i = 0; i < list.Count; i++)
-                {
-                    list[i] = n.Niveau;
-                }
-            }
-            return list;
-        }
         
+        /// <summary>
+        /// Listes des Noeuds du Graphe(Sommet,Degre,Niveau)
+        /// </summary>
+        /// <returns></returns>
         public List<Noeud> N()
         {
             List<Noeud>noeud = new List<Noeud>(Sommet.Count);
@@ -1167,46 +1190,37 @@ namespace KC
             }
             return noeud;
         }
-       
-        public List<DateTime> Decouverte()
-        {
-            List<DateTime> dates_D = new List<DateTime>();
-            for (int i = 0; i < Noeuds.Count; i++)
-            {
-                for (int j = 0;  j < dates_D.Count; j++)
-                {
-                    dates_D[j] = Noeuds[i].date_Fin;
-                }
-            }
-            return  dates_D;
-        }
-
-        public List<DateTime> Fin()
-        {
-            List<DateTime> dates_F = new List<DateTime>();
-            for(int i = 0; i < Noeuds.Count; i++)
-            {
-                for(int j = 0;  j < dates_F.Count ; j++)
-                {
-                    dates_F[j] = Noeuds[i].date_Dec;
-                }
-            }
-            return dates_F;
-        }
         
-        public List<int> Deg()
+        
+        public void Affichage_Date_Fin(List<DateTime> Date_2_Fin)
         {
-            List<int> degres = new List<int>(Sommet.Count);
-            for (int i = 0; i < Noeuds.Count; i++)
+            string orden = "";
+            foreach (DateTime d in Date_2_Fin)
             {
-                for (int j = 0; j < degres.Count; j++)
-                {
-                    degres[j] = Noeuds[i].Degre;
-                }
-
+                orden += Convert.ToString(d) + "|";
             }
-            return degres;
+
+            Console.WriteLine();
+            Console.WriteLine($"La liste des dates de Fin : {orden}");
         }
+
+        public void Affichage_Date_Decouverte(List<DateTime> Date_2_Decouverte)
+        {
+            string orden = "";
+            foreach (DateTime d in Date_2_Decouverte)
+            {
+                orden += Convert.ToString(d) + "|";
+            }
+
+            Console.WriteLine();
+            Console.WriteLine($"La liste des dates de Fin : {orden}");
+        }
+
+
+        /// <summary>
+        /// Degre du graphe
+        /// </summary>
+        /// <returns></returns>
         public int Deg_Max()
         {
             int degre_maximum = 0;
@@ -1234,7 +1248,7 @@ namespace KC
             return occ;
         }
         /// <summary>
-        /// Occurence du noeud de depart dans une liste de noeuds0
+        /// Occurence du noeud de depart dans une liste de noeuds
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>

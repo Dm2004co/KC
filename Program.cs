@@ -12,7 +12,7 @@ using System.Reflection.Metadata.Ecma335;
 Console.Clear();
 Console.Title = "Les relations des membres d'une association de Karaté";
 Console.WriteLine(value: Console.Title.ToUpper() + Environment.NewLine);
-  Graphe g = new Graphe();
+Graphe g = new Graphe();
 
     Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : 5 Modes : (Matrices et Listes)  \n 3 : Coloration du graphe \n 4 : PCC et son implementation \n 5 : Visualisation du graphe ");
     int i = Convert.ToInt32(Console.ReadLine());
@@ -144,51 +144,59 @@ Console.WriteLine(value: Console.Title.ToUpper() + Environment.NewLine);
             
             break;
         case 2:
-            Console.WriteLine("Modes : Liste d'adjacence (0) , \n Matrice d'adjacence (1) , \n Matrice d'incidence (2) , \n Liste des Predecesseurs(3), \n Liste des Degres(4) , \n Liste des Niveaux des Noeuds(5), \n Listes des Dates de Fin(6) , \n Listes des Dates de Decouverte(7) , \n Listes des Noeuds , \n Listes des Poids(8)");//Obligatoire
+            Console.WriteLine("Modes : Liste d'adjacence (0) , \n Matrice d'adjacence (1) , \n Matrice d'incidence (2) , \n Liste des Predecesseurs(3), \n Listes des Noeuds(4) , \n Listes des Poids(5)");//Obligatoire
             int choix = Convert.ToInt32(Console.ReadLine());
             switch (choix)
             {
 
                 case 0:
                
-                   foreach( var key in g.Succ.Keys)
-                {
-                    foreach( int value in g.Succ[key])
-                    {
+                           foreach( var key in g.Succ.Keys)
+                        {
+                            foreach( int value in g.Succ[key])
+                            {
                         
-                        Console.WriteLine($"Succeseur(s) de {key} sont : {value} ");
-                    }
-                    Console.WriteLine();
+                                Console.WriteLine($"Succeseur(s) de {key} sont : {value} ");
+                            }
+                            Console.WriteLine();
                     
                     
-                }
+                        }
                     break;
                 case 1:
-                    Console.WriteLine("Matrice d'Adjacence : ");
-                    g.Afficher_Adjacence(g.Matrice_ADJ);
-                    break;
+                        Console.WriteLine("Matrice d'Adjacence : ");
+                        g.Afficher_Adjacence(g.Matrice_ADJ);
+                        break;
                 case 2: Console.WriteLine("Matrice d'incidence : ");
                         g.Afficher_Incidence(g.Matrice_Incidence);
                         break;
                 case 3: Console.WriteLine("Liste des Predecesseurs ");
 
-                foreach (var key in g.Pred.Keys)
-                {
-                    foreach (int value in g.Pred[key])
-                    {
+                        foreach (var key in g.Pred.Keys)
+                        {
+                            foreach (int value in g.Pred[key])
+                            {
 
-                        Console.WriteLine($"Predecesseur(s) de {key} sont : {value} ");
-                    }
-                    Console.WriteLine();
+                                Console.WriteLine($"Predecesseur(s) de {key} sont : {value} ");
+                            }
+                            Console.WriteLine();
 
 
-                }
+                        }
                 break;
+                
+                case 4:
+                        Console.WriteLine("Liste des Noeuds(sommet,degre,niveau) : ");
+                break;
+                case 5:
+                        Console.WriteLine("Liste des Poids : ");
+                break;
+
             
 
         }
             break;
-        case 3:
+        case 3: Coloration color = new Coloration();
                 break;
         case 4:
         Console.WriteLine("PCC : Dijkstra (0) , Bellman-Ford (1) , Floyd-Marshall (2)");

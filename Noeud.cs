@@ -15,16 +15,17 @@ namespace KC
 {
     internal class Noeud
     {
-       
+       static Graphe g = new Graphe();
         int sommet;
         SortedList<int, int> pred= new SortedList<int, int>();
         int degre;
-        static Graphe g = new Graphe();
         Color couleur = new Color();
         int niveau;
         DateTime date_dec;
         DateTime date_fin;
-         
+         /// <summary>
+         /// Constructeur naturel de Noeud
+         /// </summary>
         public Noeud()
         {
             string imput = Console.ReadLine(); 
@@ -34,8 +35,13 @@ namespace KC
             this.degre = Calcul_Degre();
             this.niveau = 0;
             
-            
         }
+        /// <summary>
+        /// Constructeur pour cloner un Noeud à partir d'un sommet
+        /// </summary>
+        /// <param name="sommet">
+        /// Un sommet quelconque
+        /// </param>
         public Noeud(int sommet)
         {
             
@@ -47,14 +53,16 @@ namespace KC
             this.date_fin = Fin();
             this.date_dec = Decouverte();
         }
- 
+        /// <summary>
+        /// Propriete du Niveau d'un Sommet
+        /// </summary>
         public int Niveau
         {
             get { return this.niveau; }
             set { this.niveau = value; }
         }
         /// <summary>
-        /// Propriete d'un sommet 
+        /// Propriete d'un Sommet 
         /// </summary>
         public int Sommet
         {
@@ -68,9 +76,10 @@ namespace KC
         public SortedList<int,int> Pred
         {
             get { return this.pred; }
+            
         }
         /// <summary>
-        /// Propriete d'un degre d'un Noeud
+        /// Propriete d'un Degre d'un Noeud
         /// </summary>
         public int Degre
         {
@@ -78,7 +87,7 @@ namespace KC
             set { this.degre = value; }
         }
         /// <summary>
-        /// Propriete de la couleur d'un Noeud
+        /// Propriete de la Couleur d'un Noeud
         /// </summary>
         public Color Couleur
         {
@@ -104,11 +113,11 @@ namespace KC
             
         }
         /// <summary>
-        /// Propriete static du graphe
+        /// Propriete static du Graphe
         /// </summary>
-        public static Graphe G { get { return g; } }
+         static Graphe G { get { return g; } }
         /// <summary>
-        /// Selection d'un sommet avec des contraintes 
+        /// Selection d'un Sommet avec des Contraintes 
         /// </summary>
         /// <returns></returns>
         public  static int Insertion_Sommet( string n )
@@ -139,29 +148,35 @@ namespace KC
 
         
         /// <summary>
-        /// Methode pour calculer le degre d'un Noeud en fct de  la liste des sucesseurs et des predecesseurs
+        /// Methode pour calculer le Degre d'un Noeud en fct de la Liste des Sucesseurs et des Predecesseurs
         /// </summary>
         /// <returns></returns>
         public int Calcul_Degre()
         {
-            
+            int nb_succ = G.Succ[sommet].Count;
+            int nb_pred = G.Pred[sommet].Count;
+            int deg = 0;
 
-           foreach (int succ in G.Succ[this.sommet])
+           foreach (int suc in G.Succ[sommet])
             {
-                int nb_succ = G.Succ[this.sommet].Count;
-                foreach(int pred in G.Pred[this.sommet])
+                
+                foreach(int pred in G.Pred[sommet])
                 { 
-                    int nb_pred = G.Pred[this.sommet].Count; 
+                    
                     while(nb_pred > 0 &&  nb_succ > 0)
                     {
-                        this.degre++;
+                        deg++;
                         nb_succ--;
                         nb_pred--;
                     }
                 }
             }
-            return this.degre;
+            return deg;
         }
+
+       
+
+
         
         /// <summary>
         /// Initialisation de la date de decouverte
