@@ -50,12 +50,9 @@ namespace KC
             this.succ = Liste_Succ();
             this.pred = Liste_Pred();
             this.degre_max = Deg_Max();
-            this.niveau = Niv();
             this.niv = 0;
             this.noeuds = N();
-            this.date_decouverte = Decouverte();
-            this.date_fin = Fin();
-            this.degre = Deg();
+            
 
         }
         /// <summary>
