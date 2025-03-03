@@ -223,8 +223,24 @@ namespace KC
             }
             return false;
         }
-       
-        
-        
+        public bool Inferieur(Noeud n, Noeud a)
+        {
+            if (n.Sommet < a.Sommet)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool Superieu(Noeud n, Noeud a)
+        {
+            if (n.Sommet > a.Sommet)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
     }
 }

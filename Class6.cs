@@ -14,7 +14,7 @@ namespace KC
         public void Djisktra()
         {
             Noeud n = new Noeud();
-            Lien l = new Lien();
+            Lien l = new Lien(n);
             while (!g.Sommet.Contains(n.Sommet) && n.Couleur!= Color.Red)
             {
                 l.Distance = 0;

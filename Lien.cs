@@ -18,10 +18,20 @@ namespace KC
         /// <summary>
         /// Constructeur naturel de la classe Lien
         /// </summary>
-        public Lien()
+        public Lien(Noeud n , Noeud p)
+        {
+            this.arete = (n,p);
+            this.orientation = false;
+            this.ponderation = false;
+            this.poids = 0;
+            this.distance = 0;
+        }
+        public Lien(Noeud n )
         {
             this.orientation = false;
             this.ponderation = false;
+            this.poids = 0;
+            this.distance = 0;
         }
         /// <summary>
         /// Propirete d'une arete
@@ -67,7 +77,12 @@ namespace KC
             set { this.poids = value; }
         }
        
-        
+        public int Calcul_Distance(Noeud a , Noeud b)
+        {
+            //Existence de Chemin entre a et b 
+            //Calcul de distance avec le nombre de sommets renvoyes entre a et b
+            return this.distance;
+        }
 
     }
 }

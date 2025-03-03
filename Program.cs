@@ -106,7 +106,7 @@ Graphe g = new Graphe();
                     {
                         Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
                         Noeud n = new Noeud();
-                        g.Affichage_Ordre_BFS(g.BFS(n));
+                        g.Affichage_Ordre_BFS(g.BFS(n).Item1);
                     }
                     BFS();
                     break;

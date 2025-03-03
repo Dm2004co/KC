@@ -708,18 +708,18 @@ namespace KC
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public List<int> BFS (Noeud depart)
+        public (List<int>,List<Noeud>)BFS (Noeud depart)
         {
-            Queue<Noeud> BFS = new Queue<Noeud>(Sommet.Count);
+            Queue<Noeud> BFS = new Queue<Noeud>();
             List<Noeud> Noeud_v = new List<Noeud>();
             List<int> Ordre = new List<int>();
-
-
 
             try
             {
 
                 depart.Couleur = Color.Yellow;
+                depart.date_Dec = depart.Decouverte();
+                depart.Degre = depart.Calcul_Degre(); ;
                 Console.WriteLine($"Debut d'exploration de  : {depart.Sommet}");
                 Noeud_v.Add(depart);
                 Console.WriteLine($"Noeud :{depart.Sommet} , visité");
@@ -730,7 +730,9 @@ namespace KC
                 while (BFS.Count > 0)
                 {
                     Noeud y = BFS.Dequeue();
+                    y.Degre = y.Calcul_Degre();
                     y.Couleur = Color.Red;
+                    y.date_Fin = y.Fin();
                     Console.WriteLine($"Fin d'exploration de : {y.Sommet}");
                     if (Succ[y.Sommet].Count > 0)
                     {
@@ -742,13 +744,15 @@ namespace KC
                                 {
 
                                     Noeud voisin = new Noeud(voisinage);
-
+                                    voisin.Niveau = y.Niveau + 1;
+                                    voisin.Degre = voisin.Calcul_Degre();
                                     for (int i = 0; i < Noeud_v.Count; i++)
                                     {
 
                                         if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && Occurence(Noeud_v, voisin) < 1)
                                         {
                                             voisin.Couleur = Color.Yellow;
+                                            voisin.date_Dec = voisin.Decouverte();
                                             Console.WriteLine($"Debut d'exploration de  : {voisin.Sommet}");
                                             Noeud_v.Add(voisin);
                                             Console.WriteLine($"Noeud :{voisin.Sommet} , visité");
@@ -784,9 +788,11 @@ namespace KC
             }
             catch (Exception ex)
             {
-                Console.WriteLine($" {ex.Source} , \n{ex.Message}");
+                string s = " (La Liste d'Adjacence)";
+                Console.WriteLine($" {ex.Source} , \n{ex.Message + s} ");
             }
-            return Ordre;
+            return (Ordre,Noeud_v);
+
 
         }
 
@@ -796,18 +802,19 @@ namespace KC
         /// <param name="depart"></param>
         /// <param name="arrivee"></param>
         /// <returns></returns>
-        public List<int> BFS(Noeud depart,Noeud arrivee)
+        public (bool,List<int>,List<Noeud>) Chemin(Noeud depart,Noeud arrivee)
         {
-            Queue<Noeud> BFS = new Queue<Noeud>(Sommet.Count);
+            Queue<Noeud> BFS = new Queue<Noeud>();
             List<Noeud> Noeud_v = new List<Noeud>();
             List<int> Ordre = new List<int>();
-            
-
+            bool chemin = false;
 
             try
             {
 
                 depart.Couleur = Color.Yellow;
+                depart.date_Dec = depart.Decouverte();
+                depart.Degre = depart.Calcul_Degre(); ;
                 Console.WriteLine($"Debut d'exploration de  : {depart.Sommet}");
                 Noeud_v.Add(depart);
                 Console.WriteLine($"Noeud :{depart.Sommet} , visité");
@@ -818,8 +825,9 @@ namespace KC
                 while (BFS.Count > 0)
                 {
                     Noeud y = BFS.Dequeue();
+                    y.Degre = y.Calcul_Degre();
                     y.Couleur = Color.Red;
-
+                    y.date_Fin = y.Fin();
                     Console.WriteLine($"Fin d'exploration de : {y.Sommet}");
                     if (Succ[y.Sommet].Count > 0)
                     {
@@ -831,13 +839,15 @@ namespace KC
                                 {
 
                                     Noeud voisin = new Noeud(voisinage);
-
+                                    voisin.Niveau = y.Niveau + 1;
+                                    voisin.Degre = voisin.Calcul_Degre();
                                     for (int i = 0; i < Noeud_v.Count; i++)
                                     {
 
                                         if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && Occurence(Noeud_v, voisin) < 1)
                                         {
                                             voisin.Couleur = Color.Yellow;
+                                            voisin.date_Dec = voisin.Decouverte();
                                             Console.WriteLine($"Debut d'exploration de  : {voisin.Sommet}");
                                             Noeud_v.Add(voisin);
                                             Console.WriteLine($"Noeud :{voisin.Sommet} , visité");
@@ -849,9 +859,9 @@ namespace KC
                                         }
                                         if (Noeud_v[i].Egale(arrivee, Noeud_v[i]) || voisin.Egale(arrivee, Noeud_v[i]))
                                         {
-                                            return Ordre;
+                                            chemin = true;
+                                            
                                         }
-
 
                                     }
                                 }
@@ -863,7 +873,6 @@ namespace KC
                 }
 
             }
-
 
             catch (ArgumentNullException arg)
             {
@@ -879,9 +888,11 @@ namespace KC
             }
             catch (Exception ex)
             {
-                Console.WriteLine($" {ex.Source} , \n{ex.Message}");
+                string s = " (La Liste d'Adjacence)";
+                Console.WriteLine($" {ex.Source} , \n{ex.Message + s} ");
             }
-            return Ordre;
+            return (chemin,Ordre,Noeud_v);
+
 
         }
 
@@ -1078,12 +1089,7 @@ namespace KC
         /// <param name="depart"></param>
         /// <param name="arrivee"></param>
         /// <returns></returns>
-        public List <int> Chemin(Noeud depart, Noeud arrivee)
-        {
-            List<int> chemin = BFS(depart, arrivee);
-            return chemin;
-
-        }
+        
 
 
         static void Tri_Croissant(List<int> L)
@@ -1092,14 +1098,14 @@ namespace KC
             {
                 int resul;
                 resul = L[pivot];
-                L[pivot] = L[debut];
+                L[pivot] = L[fin];
                 L[debut] = resul;
 
-                int j = fin;
+                int j = debut;
 
-                for (int i = fin; i <= debut; i--)
+                for (int i = debut; i < fin; i++)
                 {
-                    if (L[i] <= L[debut])
+                    if (L[i] <= L[fin])
                     {
                         resul = L[j];
                         L[j] = L[i];
@@ -1110,7 +1116,7 @@ namespace KC
                 }
                 resul = L[j];
                 L[j] = L[debut];
-                L[debut] = resul;
+                L[fin] = resul;
 
                 return j;
             }
@@ -1127,6 +1133,50 @@ namespace KC
                 }
             }
         }
+
+        static void Tri_Croissant(List<Noeud> L)
+        {
+            static int Partionner(List<Noeud> L, int fin, int debut, int pivot)
+            {
+                
+                Noeud resul = new Noeud();
+                resul = L[pivot];
+                L[pivot] = L[fin];
+                L[debut] = resul;
+
+                int j = debut;
+
+                for (int i = debut; i < fin; i++)
+                {
+                    if (L[i].Egale(L[debut], L[i]) || L[i].Inferieur(L[i], L[debut]))
+                    {
+                        resul = L[j];
+                        L[j] = L[i];
+                        L[i] = resul;
+                        j--;
+                    }
+
+                }
+                resul = L[j];
+                L[j] = L[debut];
+                L[fin] = resul;
+
+                return j;
+            }
+            static void Quick_Sort(List<Noeud> L, int debut, int fin)
+            {
+                int pivot;
+                if (debut < fin)
+                {
+                    pivot = (debut + fin) / 2;
+                    pivot = Partionner(L, debut, fin, pivot);
+                    Quick_Sort(L, debut, pivot - 1);
+                    Quick_Sort(L, pivot + 1, fin);
+
+                }
+            }
+        }
+
 
         static void Tri_Decroissant(List<int> L)
         {
@@ -1170,7 +1220,49 @@ namespace KC
             }
         }
 
-        
+        static void Tri_Decroissant(List<Noeud> L)
+        {
+            static int Partionner(List<Noeud> L, int fin, int debut, int pivot)
+            {
+                Noeud resul;
+                resul = L[pivot];
+                L[pivot] = L[debut];
+                L[debut] = resul;
+
+                int j = fin;
+
+                for (int i = fin; i <= debut; i--)
+                {
+                    if (L[i].Egale(L[debut], L[i]) || L[i].Inferieur(L[i], L[debut]))
+                    {
+                        resul = L[j];
+                        L[j] = L[i];
+                        L[i] = resul;
+                        j--;
+                    }
+
+                }
+                resul = L[j];
+                L[j] = L[debut];
+                L[debut] = resul;
+
+                return j;
+            }
+            static void Quick_Sort(List<Noeud> L, int debut, int fin)
+            {
+                int pivot;
+                if (debut < fin)
+                {
+                    pivot = (debut + fin) / 2;
+                    pivot = Partionner(L, debut, fin, pivot);
+                    Quick_Sort(L, debut, pivot - 1);
+                    Quick_Sort(L, pivot + 1, fin);
+
+                }
+            }
+        }
+
+
         /// <summary>
         /// Listes des Noeuds du Graphe(Sommet,Degre,Niveau)
         /// </summary>
@@ -1182,7 +1274,9 @@ namespace KC
             {
                 for(int i = 0; i < Sommet.Count;i++)
                 {
-                    noeud[j] = new Noeud(Sommet[i]);   
+                    noeud[j] = new Noeud(Sommet[i]);
+                    noeud[j].Degre = noeud[j].Calcul_Degre();
+                    
                 }
             }
             return noeud;
