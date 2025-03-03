@@ -35,6 +35,7 @@ namespace KC
         List<int>degre = new List<int>();
         bool orientation = false;
         bool ponderation = false;
+        int niv = 0;
         public Graphe()
         {
             this.orientation = Orientation();
@@ -45,12 +46,13 @@ namespace KC
             this.matrice_incidence = Mat_Incidence();
             this.succ = Liste_Succ();
             this.pred = Liste_Pred();
-            //this.degre_max = Deg_Max();
+            this.degre_max = Deg_Max();
             this.niveau = Niv();
-            //this.noeuds = N();
+            this.niv = 0;
+            this.noeuds = N();
             this.date_decouverte = Decouverte();
             this.date_fin = Fin();
-            //this.degre = Deg();
+            this.degre = Deg();
 
         }
         /// <summary>
@@ -219,6 +221,7 @@ namespace KC
             Console.WriteLine();
             Console.WriteLine($"Ordre des Niveaux : {n}");
         }
+       
         /// <summary>
         /// Orientation du graphe
         /// </summary>
@@ -475,6 +478,7 @@ namespace KC
             {
               
                 depart.Couleur = Color.Yellow;
+                depart.date_Dec = depart.Decouverte();
                 Console.WriteLine($"Debut d'exploration de  : {depart.Sommet}");
                 Noeud_v.Add(depart);
                 Console.WriteLine($"Noeud :{depart.Sommet} , visité");
@@ -486,6 +490,7 @@ namespace KC
                 {
                     Noeud y = DFS.Pop();
                     y.Couleur = Color.Red;
+                    y.date_Fin = y.Fin();
                     Console.WriteLine($"Fin d'exploration de : {y.Sommet}");
                     if (Succ[y.Sommet].Count > 0)
                     {
@@ -497,13 +502,15 @@ namespace KC
                                 {
 
                                     Noeud voisin = new Noeud(voisinage);
-
+                                    voisin.Niveau = y.Niveau + 1 ;
+                                    //voisin.Degre = voisin.Calcul_Degre();
                                     for (int i = 0; i < Noeud_v.Count; i++)
-                                    {
+                                      {
 
                                         if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && Occurence(Noeud_v,voisin) < 1)
                                         {
                                             voisin.Couleur = Color.Yellow;
+                                            voisin.date_Dec = voisin.Decouverte();
                                             Console.WriteLine($"Debut d'exploration de  : {voisin.Sommet}");
                                             Noeud_v.Add(voisin);
                                             Console.WriteLine($"Noeud :{voisin.Sommet} , visité");
@@ -545,9 +552,6 @@ namespace KC
             return Ordre;
 
         }
-            
-            
-           
 
         /// <summary>
         /// Afficahge de l'ordre de visite d'une DFS
@@ -566,6 +570,117 @@ namespace KC
         }
 
 
+        public List<Noeud> DFS_Noeud(Noeud depart)
+        {
+            Stack<Noeud> DFS = new Stack<Noeud>();
+            List<Noeud> Noeud_v = new List<Noeud>();
+            List<int> Ordre = new List<int>();
+
+            try
+            {
+
+                depart.Couleur = Color.Yellow;
+                depart.date_Dec = depart.Decouverte();
+                Console.WriteLine($"Debut d'exploration de  : {depart.Sommet}");
+                Noeud_v.Add(depart);
+                Console.WriteLine($"Noeud :{depart.Sommet} , visité");
+                Ordre.Add(depart.Sommet);
+                DFS.Push(depart);
+                Console.WriteLine("Noeud rajouté dans la pile");
+
+                while (DFS.Count > 0)
+                {
+                    Noeud y = DFS.Pop();
+                    y.Couleur = Color.Red;
+                    y.date_Fin = y.Fin();
+                    Console.WriteLine($"Fin d'exploration de : {y.Sommet}");
+                    if (Succ[y.Sommet].Count > 0)
+                    {
+                        foreach (int voisinage in Succ[y.Sommet])
+                        {
+                            if (Succ.TryGetValue(voisinage, out List<int>? value))
+                            {
+                                if (Succ[voisinage].Count > 0)
+                                {
+
+                                    Noeud voisin = new Noeud(voisinage);
+                                    voisin.Niveau = y.Niveau + 1;
+                                    for (int i = 0; i < Noeud_v.Count; i++)
+                                    {
+
+                                        if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && Occurence(Noeud_v, voisin) < 1)
+                                        {
+                                            voisin.Couleur = Color.Yellow;
+                                            voisin.date_Dec = voisin.Decouverte();
+                                            Console.WriteLine($"Debut d'exploration de  : {voisin.Sommet}");
+                                            Noeud_v.Add(voisin);
+                                            Console.WriteLine($"Noeud :{voisin.Sommet} , visité");
+                                            Ordre.Add((voisin.Sommet));
+                                            DFS.Push(voisin);
+                                            Console.WriteLine($"Noeud : {voisin.Sommet}, rajouté dans la pile");
+                                            voisin.Pred[voisin.Sommet] = y.Sommet;
+
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+
+            }
+
+            catch (ArgumentNullException arg)
+            {
+                Console.WriteLine($" Null Exception  : {arg.Source} , \n{arg.Message}");
+            }
+            catch (StackOverflowException s)
+            {
+                Console.WriteLine($" Stack Overflow : {s.Source} , \n{s.Message}");
+            }
+            catch (IndexOutOfRangeException i)
+            {
+                Console.WriteLine($" Index Out of Range : {i.Source} , \n{i.Message}");
+            }
+            catch (Exception ex)
+            {
+                string s = " (La Liste d'Adjacence)";
+                Console.WriteLine($" {ex.Source} , \n{ex.Message + s} ");
+            }
+            return Noeud_v;
+
+        }
+
+
+
+        public void Affichage_Ordre_DFS_Noeud(List<Noeud> DFS)
+        {
+            Console.WriteLine();
+            string[] orden = new string [7];
+            foreach (Noeud n in DFS)
+            {
+                
+             for(int i = 0; i < 7; i++)
+                {
+                    orden[0] = Convert.ToString(n.Sommet);
+                    orden[1] = Convert.ToString(n.Couleur);
+                    orden[2] = Convert.ToString(n.date_Dec);
+                    orden[3] = Convert.ToString(n.date_Fin);
+                    orden[4] = Convert.ToString(n.Niveau);
+                    orden[5] = Convert.ToString(n.Degre);
+                    orden[6] = Convert.ToString(n.Pred);
+
+                    
+                    Console.WriteLine($"Proprietes de {n.Sommet}  : {orden[i]}");
+                }
+                Console.WriteLine();
+            }
+
+           
+        }
 
         /// <summary>
         /// Parcours en largeur ou Breath First Search
@@ -1040,19 +1155,19 @@ namespace KC
             return list;
         }
         
-       /* public List<Noeud> N()
+        public List<Noeud> N()
         {
-            List<Noeud>noeud = new List<Noeud>();
+            List<Noeud>noeud = new List<Noeud>(Sommet.Count);
             for(int  j = 0;  j < noeud.Count; j++) 
             {
                 for(int i = 0; i < Sommet.Count;i++)
                 {
-                    noeud[i] = new Noeud(Sommet[i]);   
+                    noeud[j] = new Noeud(Sommet[i]);   
                 }
             }
             return noeud;
         }
-       */
+       
         public List<DateTime> Decouverte()
         {
             List<DateTime> dates_D = new List<DateTime>();
@@ -1078,10 +1193,10 @@ namespace KC
             }
             return dates_F;
         }
-        /*
+        
         public List<int> Deg()
         {
-            List<int> degres = new List<int>();
+            List<int> degres = new List<int>(Sommet.Count);
             for (int i = 0; i < Noeuds.Count; i++)
             {
                 for (int j = 0; j < degres.Count; j++)
@@ -1099,7 +1214,7 @@ namespace KC
             //degre_maximum = this.degre.Max(); 
             return degre_maximum;
         }
-        */
+        
         /// <summary>
         /// Occurence d'un noeud dans une liste de noeuds 
         /// </summary>

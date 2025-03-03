@@ -8,12 +8,14 @@ using System.Security.Cryptography;
 using System.Security.AccessControl;
 using System.Runtime.CompilerServices;
 using System.Linq.Expressions;
+using System.ComponentModel;
+using Microsoft.VisualBasic;
 
 namespace KC
 {
     internal class Noeud
     {
-
+       
         int sommet;
         SortedList<int, int> pred= new SortedList<int, int>();
         int degre;
@@ -29,10 +31,9 @@ namespace KC
             this.sommet = Insertion_Sommet(imput);
             this.couleur = Color.White;
             this.pred = new SortedList<int,int>(34);
-            //this.degre = Calcul_Degre();
-            this.niveau = Calcul_Niveau();
-            this.date_fin = Fin();
-            this.date_dec = Decouverte();
+            this.degre = Calcul_Degre();
+            this.niveau = 0;
+            
             
         }
         public Noeud(int sommet)
@@ -42,7 +43,7 @@ namespace KC
             this.couleur = Color.White;
             this.pred = new SortedList<int, int>(34);
             //this.degre = Calcul_Degre();
-            this.niveau = Calcul_Niveau();
+            this.niveau = 0;
             this.date_fin = Fin();
             this.date_dec = Decouverte();
         }
@@ -50,6 +51,7 @@ namespace KC
         public int Niveau
         {
             get { return this.niveau; }
+            set { this.niveau = value; }
         }
         /// <summary>
         /// Propriete d'un sommet 
@@ -73,6 +75,7 @@ namespace KC
         public int Degre
         {
             get { return this.degre; }
+            set { this.degre = value; }
         }
         /// <summary>
         /// Propriete de la couleur d'un Noeud
@@ -88,7 +91,8 @@ namespace KC
         public DateTime date_Dec
         {
             get { return this.date_dec; }
-            
+            set { this.date_dec = value; }
+
         }
         /// <summary>
         /// Propriete de la date de fin 
@@ -96,6 +100,7 @@ namespace KC
         public DateTime date_Fin
         {
             get { return this.date_fin; }
+            set { this.date_fin = value; }
             
         }
         /// <summary>
@@ -134,36 +139,30 @@ namespace KC
 
         
         /// <summary>
-        /// Methode pour calculer le degre d'un Noeud en fct de la matrice d'adjacence
+        /// Methode pour calculer le degre d'un Noeud en fct de  la liste des sucesseurs et des predecesseurs
         /// </summary>
         /// <returns></returns>
-        /*public int Calcul_Degre()
+        public int Calcul_Degre()
         {
-             
-           for(int i = 0;i < G.Matrice_ADJ.GetLength(0);i++)
+            
+
+           foreach (int succ in G.Succ[this.sommet])
             {
-                if (G.Matrice_ADJ[i,this.Sommet-1] == 1)
+                int nb_succ = G.Succ[this.sommet].Count;
+                foreach(int pred in G.Pred[this.sommet])
+                { 
+                    int nb_pred = G.Pred[this.sommet].Count; 
+                    while(nb_pred > 0 &&  nb_succ > 0)
                     {
                         this.degre++;
+                        nb_succ--;
+                        nb_pred--;
                     }
-                
-                for (int j  = 0; j < G.Matrice_ADJ.GetLength(1); j++)
-                {
-                    if (G.Matrice_ADJ[this.Sommet-1,j] == 1)
-                {
-                    this.degre++;
-                }
                 }
             }
-           return this.degre;
-        }*/
-        public int Calcul_Niveau()
-        {
-               
-            
-            return this.niveau;
-            
+            return this.degre;
         }
+        
         /// <summary>
         /// Initialisation de la date de decouverte
         /// </summary>
@@ -173,7 +172,10 @@ namespace KC
             
             if( this.couleur == Color.Yellow)
             {
-               this.date_dec = DateTime.Now;
+                double s = Convert.ToDouble(this.sommet);
+                DateTime d = DateTime.Now;
+                DateInterval i = DateInterval.Second;
+               this.date_dec = (DateAndTime.DateAdd(i, s, d));
             }
             return this.date_dec;
         }
@@ -185,7 +187,10 @@ namespace KC
         {
             if (this.couleur == Color.Red)
             {
-                this.date_fin = DateTime.Now;
+                double s = Convert.ToDouble(this.sommet);
+                DateTime d = date_Dec;
+                DateInterval i = DateInterval.Second;
+                this.date_fin = (DateAndTime.DateAdd(i, s, d));
             }
             return this.date_fin;
         }

@@ -98,31 +98,53 @@ Console.WriteLine(value: Console.Title.ToUpper() + Environment.NewLine);
         case 1:
         Console.WriteLine("Algorithme de parcours : BFS(0) ou DFS(1)");//Obligatoire
         int imput = Convert.ToInt32(Console.ReadLine());
-        switch(imput)
+        switch (imput)
         {
-            case 0: Console.WriteLine("Choix de parcours : BFS ");
-                void BFS()
-                {
-                    Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
-                    Noeud n = new Noeud();
-                    g.Affichage_Ordre_BFS(g.BFS(n));
-                }BFS();
-                break;
-            case 1: Console.WriteLine("Choix de parcours : DFS ");
-                void DFS()
-                 {
-                    Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
-                    Noeud n = new Noeud();
-                    g.Affichage_Ordre_DFS(g.DFS(n));
-                    
-                }DFS();
+            case 0:
+                    Console.WriteLine("Choix de parcours : BFS ");
+                    void BFS()
+                    {
+                        Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                        Noeud n = new Noeud();
+                        g.Affichage_Ordre_BFS(g.BFS(n));
+                    }
+                    BFS();
+                    break;
+            case 1:
+                    Console.WriteLine("Choix de parcours : DFS ");
+                    Console.WriteLine("DFS : \n 0 : Ordre de visite \n 1 : Noeuds visités  ");
+                    int dfs = Convert.ToInt32(Console.ReadLine());
+                    switch (dfs)
+                    {
+                        case 0:
+                            void DFS()
+                            {
+                                Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                                Noeud n = new Noeud();
+                                g.Affichage_Ordre_DFS(g.DFS(n));
+
+                            }
+                            DFS();
+                            break;
+
+                        case 1:
+
+                            void DFS_Noeud()
+                            {
+                                Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                                Noeud n = new Noeud();
+                                g.Affichage_Ordre_DFS_Noeud(g.DFS_Noeud(n));
+                            }
+                            DFS_Noeud();
+                            break;
+
+                }
                 break;
         }
-        
             
             break;
         case 2:
-            Console.WriteLine("Modes : Liste d'adjacence (0) , Matrice d'adjacence (1) , Matrice d'incidence (2) , Liste des Predecesseurs(3)");//Obligatoire
+            Console.WriteLine("Modes : Liste d'adjacence (0) , \n Matrice d'adjacence (1) , \n Matrice d'incidence (2) , \n Liste des Predecesseurs(3), \n Liste des Degres(4) , \n Liste des Niveaux des Noeuds(5), \n Listes des Dates de Fin(6) , \n Listes des Dates de Decouverte(7) , \n Listes des Noeuds , \n Listes des Poids(8)");//Obligatoire
             int choix = Convert.ToInt32(Console.ReadLine());
             switch (choix)
             {
