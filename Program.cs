@@ -14,7 +14,7 @@ Console.Title = "Les relations des membres d'une association de Karaté";
 Console.WriteLine(value: Console.Title.ToUpper() + Environment.NewLine);
 Graphe g = new Graphe();
 
-    Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : 5 Modes : (Matrices et Listes)  \n 3 : Coloration du graphe \n 4 : PCC et son implementation \n 5 : Visualisation du graphe ");
+    Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : Modes : (Matrices et Listes)  \n 3 : Coloration du graphe \n 4 : PCC et son implementation \n 5 : Visualisation du graphe ");
     int i = Convert.ToInt32(Console.ReadLine());
     switch (i)
     {
@@ -96,19 +96,62 @@ Graphe g = new Graphe();
             //g.Multigraphe;
             break;
         case 1:
-        Console.WriteLine("Algorithme de parcours : BFS(0) ou DFS(1)");//Obligatoire
+        Console.WriteLine("Algorithme de parcours : BFS(0) ou  DFS(1) ");//Obligatoire
         int imput = Convert.ToInt32(Console.ReadLine());
         switch (imput)
         {
             case 0:
-                    Console.WriteLine("Choix de parcours : BFS ");
-                    void BFS()
-                    {
-                        Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
-                        Noeud n = new Noeud();
-                        g.Affichage_Ordre_BFS(g.BFS(n).Item1);
-                    }
-                    BFS();
+                Console.WriteLine("Choix de parcours : BFS \n 0 : BFS \n 1 : Chemin ");
+                int bfs = Convert.ToInt32(Console.ReadLine());
+                switch(bfs)
+                {
+
+                    case 0: Console.WriteLine("Selection  :  BFS ");
+                        
+                        void BFS()
+                        {
+                            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                            Noeud n = new Noeud();
+                            g.Affichage_Ordre_BFS(g.BFS(n).Item1);
+                        }
+                        BFS();
+
+                        break;
+                    case 1:
+                        Console.WriteLine(" Selection  :  Chemin \n 0 : Existence de Chemin \n 1 : Affichage de Chemin ");
+                        int chemin = Convert.ToInt32(Console.ReadLine());
+                        switch(chemin)
+                        {
+                            case 0:
+                                Console.WriteLine(" Selection  : Existence de Chemin ");
+                                Existence_Chemin();
+                                break;
+                            case 1:
+                                Console.WriteLine(" Selection  : Affichage de Chemin ");
+                                Chemin();
+                                break;
+                        }
+                        void Existence_Chemin()
+                        {
+                            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                            Noeud n = new Noeud();
+                            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                            Noeud m = new Noeud();
+                            Console.WriteLine($"Existence d'au moins un chemin dans le graphe : {(g.Chemin(n,m).Item1)}");
+                        }
+                        void Chemin()
+                        {
+                            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                            Noeud n = new Noeud();
+                            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                            Noeud m = new Noeud();
+                            g.Affichage_Ordre_BFS(g.Chemin(n, m).Item2);
+                            Console.WriteLine();
+                            g.Affichage_Ordre_BFS_Noeud(g.Chemin(n, m).Item3);
+                        }
+                        break;
+                }
+                    
                     break;
             case 1:
                     Console.WriteLine("Choix de parcours : DFS ");
@@ -122,7 +165,7 @@ Graphe g = new Graphe();
                                 Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
                                 Noeud n = new Noeud();
                                 g.Affichage_Ordre_DFS(g.DFS(n));
-
+                                
                             }
                             DFS();
                             break;

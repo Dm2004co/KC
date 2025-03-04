@@ -714,6 +714,7 @@ namespace KC
             List<Noeud> Noeud_v = new List<Noeud>();
             List<int> Ordre = new List<int>();
 
+
             try
             {
 
@@ -807,6 +808,8 @@ namespace KC
             Queue<Noeud> BFS = new Queue<Noeud>();
             List<Noeud> Noeud_v = new List<Noeud>();
             List<int> Ordre = new List<int>();
+            List<int> Chemin = new List<int>();
+            List<Noeud> C = new List<Noeud>();
             bool chemin = false;
 
             try
@@ -815,12 +818,12 @@ namespace KC
                 depart.Couleur = Color.Yellow;
                 depart.date_Dec = depart.Decouverte();
                 depart.Degre = depart.Calcul_Degre(); ;
-                Console.WriteLine($"Debut d'exploration de  : {depart.Sommet}");
+                //Console.WriteLine($"Debut d'exploration de  : {depart.Sommet}");
                 Noeud_v.Add(depart);
-                Console.WriteLine($"Noeud :{depart.Sommet} , visité");
+                //Console.WriteLine($"Noeud :{depart.Sommet} , visité");
                 Ordre.Add(depart.Sommet);
                 BFS.Enqueue(depart);
-                Console.WriteLine("Noeud rajouté dans la pile");
+                //Console.WriteLine("Noeud rajouté dans la pile");
 
                 while (BFS.Count > 0)
                 {
@@ -828,7 +831,7 @@ namespace KC
                     y.Degre = y.Calcul_Degre();
                     y.Couleur = Color.Red;
                     y.date_Fin = y.Fin();
-                    Console.WriteLine($"Fin d'exploration de : {y.Sommet}");
+                    //Console.WriteLine($"Fin d'exploration de : {y.Sommet}");
                     if (Succ[y.Sommet].Count > 0)
                     {
                         foreach (int voisinage in Succ[y.Sommet])
@@ -848,22 +851,24 @@ namespace KC
                                         {
                                             voisin.Couleur = Color.Yellow;
                                             voisin.date_Dec = voisin.Decouverte();
-                                            Console.WriteLine($"Debut d'exploration de  : {voisin.Sommet}");
+                                            //Console.WriteLine($"Debut d'exploration de  : {voisin.Sommet}");
                                             Noeud_v.Add(voisin);
-                                            Console.WriteLine($"Noeud :{voisin.Sommet} , visité");
+                                            //Console.WriteLine($"Noeud :{voisin.Sommet} , visité");
                                             Ordre.Add((voisin.Sommet));
                                             BFS.Enqueue(voisin);
-                                            Console.WriteLine($"Noeud : {voisin.Sommet}, rajouté dans la pile");
+                                            //Console.WriteLine($"Noeud : {voisin.Sommet}, rajouté dans la pile");
                                             voisin.Pred[voisin.Sommet] = y.Sommet;
 
                                         }
-                                        if (Noeud_v[i].Egale(arrivee, Noeud_v[i]) || voisin.Egale(arrivee, Noeud_v[i]))
-                                        {
-                                            chemin = true;
+                                            if (voisin.Egale(arrivee, voisin))
+                                            {
+                                                chemin = true;
+                                                
                                             
+                                                
+                                            }
                                         }
-
-                                    }
+                                    
                                 }
 
                             }
@@ -871,6 +876,7 @@ namespace KC
                         }
                     }
                 }
+               
 
             }
 
@@ -891,7 +897,23 @@ namespace KC
                 string s = " (La Liste d'Adjacence)";
                 Console.WriteLine($" {ex.Source} , \n{ex.Message + s} ");
             }
-            return (chemin,Ordre,Noeud_v);
+            for (int p = 0; p < Ordre.Count; p++)
+            {
+                if (Ordre[p] == arrivee.Sommet)
+                {
+                     int index_arrivee = p;
+                    
+                    Chemin = Ordre.GetRange(0, index_arrivee + 1);
+                }
+            }
+            for (int i = 0; i < Noeud_v.Count; i++)
+                if (Noeud_v[i].Egale(arrivee, Noeud_v[i]))
+                {
+                    int index_arrivee = i;
+                    
+                    C = Noeud_v.GetRange(0, index_arrivee + 1);
+                }
+            return (chemin,Chemin,C);
 
 
         }
@@ -908,13 +930,37 @@ namespace KC
             Console.WriteLine($"L'ordre de visite : {orden}");
         }
 
-              
-         /// <summary>
-         /// Presence d'un Cycle(Circuit) avec exemple si possible
-         /// </summary>
-         /// <param name="depart"></param>
-         /// <param name="arrivee"></param>
-         /// <returns></returns>
+        public void Affichage_Ordre_BFS_Noeud(List<Noeud> BFS)
+        {
+            Console.WriteLine();
+            string[] orden = new string[7];
+            foreach (Noeud n in BFS)
+            {
+
+                for (int i = 0; i < 7; i++)
+                {
+                    orden[0] = Convert.ToString($"Sommet = {n.Sommet}");
+                    orden[1] = Convert.ToString(n.Couleur);
+                    orden[2] = Convert.ToString(n.date_Dec);
+                    orden[3] = Convert.ToString(n.date_Fin);
+                    orden[4] = Convert.ToString($"Niveau = {n.Niveau}");
+                    orden[5] = Convert.ToString($"Degre = {n.Degre}");
+                    orden[6] = Convert.ToString(n.Pred);
+
+
+                    Console.WriteLine($"Proprietes de {n.Sommet}  : {orden[i]}");
+                }
+                Console.WriteLine();
+            }
+
+
+        }
+        /// <summary>
+        /// Presence d'un Cycle(Circuit) avec exemple si possible
+        /// </summary>
+        /// <param name="depart"></param>
+        /// <param name="arrivee"></param>
+        /// <returns></returns>
 
         public (bool,List<int>) Existence_Circuit(Noeud depart)
         {
