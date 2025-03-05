@@ -47,16 +47,17 @@ Graphe g = new Graphe();
                 switch(p)
                 {
                     case 0:
+                            Existence();
                         void Existence()
                         {
                             Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
                             Noeud n = new Noeud();
                             Console.WriteLine($"Existence d'au moins un cycle dans le graphe : {(g.Existence_Circuit(n).Item1)}");//Obligatoire
                         }
-                        Existence();
+                        
                         
                         break;
-                    case 1:
+                    case 1: Exemple();
                         void Exemple()
                         {
                             for(int i = 0; i < 33; i++)
@@ -70,7 +71,7 @@ Graphe g = new Graphe();
                             }
                            Console.WriteLine("Il n'y a pas de circuit dans le graphe");
                         }
-                        Exemple();
+                        
                         
                         break ;
                 }
@@ -107,6 +108,8 @@ Graphe g = new Graphe();
                 {
 
                     case 0: Console.WriteLine("Selection  :  BFS ");
+                            BFS();
+                       
                         
                         void BFS()
                         {
@@ -114,7 +117,7 @@ Graphe g = new Graphe();
                             Noeud n = new Noeud();
                             g.Affichage_Ordre_BFS(g.BFS(n).Item1);
                         }
-                        BFS();
+                       
 
                         break;
                     case 1:
@@ -123,12 +126,16 @@ Graphe g = new Graphe();
                         switch(chemin)
                         {
                             case 0:
-                                Console.WriteLine(" Selection  : Existence de Chemin ");
+                                Console.WriteLine(" Selection  : Existence de Chemins ");
                                 Existence_Chemin();
                                 break;
                             case 1:
                                 Console.WriteLine(" Selection  : Affichage de Chemin ");
                                 Chemin();
+                                break;
+                            case 2:
+                                Console.WriteLine(" Selection  : Nombre de Chemins ");
+                                Nb_Chemins();
                                 break;
                         }
                         void Existence_Chemin()
@@ -143,11 +150,21 @@ Graphe g = new Graphe();
                         {
                             Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
                             Noeud n = new Noeud();
-                            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                            Console.WriteLine(" Choissisez un noeud d'arrive entre 1 et 34 (compris) : ");
                             Noeud m = new Noeud();
                             g.Affichage_Ordre_BFS(g.Chemin(n, m).Item2);
                             Console.WriteLine();
                             g.Affichage_Ordre_BFS_Noeud(g.Chemin(n, m).Item3);
+                        }
+                        void Nb_Chemins()
+                        {
+                            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+                            Noeud depart = new Noeud();
+                            Console.WriteLine(" Choissisez un noeud d'arrivee entre 1 et 34 (compris) : ");
+                            Noeud arrivee = new Noeud();
+                            Console.WriteLine("Choisssez la longueur de votre chemin");
+                            int longueur = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine($"Nombre de chemins de {depart.Sommet} à {arrivee.Sommet} est  : {g.Nb_2_Chemin(depart,arrivee,longueur)}");
                         }
                         break;
                 }
@@ -160,25 +177,27 @@ Graphe g = new Graphe();
                     switch (dfs)
                     {
                         case 0:
-                            void DFS()
+                                DFS();
+                        void DFS()
                             {
                                 Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
                                 Noeud n = new Noeud();
                                 g.Affichage_Ordre_DFS(g.DFS(n));
                                 
                             }
-                            DFS();
+                           
                             break;
 
                         case 1:
+                                DFS_Noeud();
 
-                            void DFS_Noeud()
+                        void DFS_Noeud()
                             {
                                 Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
                                 Noeud n = new Noeud();
                                 g.Affichage_Ordre_DFS_Noeud(g.DFS_Noeud(n));
                             }
-                            DFS_Noeud();
+                            
                             break;
 
                 }
@@ -247,23 +266,26 @@ Graphe g = new Graphe();
         switch(selection)
         {
             case 0: Console.WriteLine("Choix de PCC : Dijkstra");
+                    Dijkstra();
                 void Dijkstra()
                 {
 
                 }
-                Dijkstra();
+                
                 break;
                 case 1: Console.WriteLine("Choix de PCC : Bellman-Ford");
+                        Bellman_Ford();
                 void Bellman_Ford()
                 {
 
-                }Bellman_Ford();
+                }
                 break;
                 case 2: Console.WriteLine("Choix de PCC : Floyd");
+                        Floyd();
                 void Floyd()
                 {
 
-                }Floyd();
+                }
                 break;
                
         }

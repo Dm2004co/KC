@@ -14,7 +14,7 @@ namespace KC
 {
     internal class Graphe
     {
-        List<(int, int)> areteList = new List<(int, int)> ();
+        List<(int, int)> areteList = new List<(int, int)>();
         List<int> sommet = new List<int>();
         int[,] matrice_ADJ = new int[34, 34];
         int[,] matrice_incidence;
@@ -25,14 +25,14 @@ namespace KC
         bool regulier = false;
         bool biparti = false;
         bool planaire = false;
-        SortedList<int, List<int>> succ = new SortedList<int, List<int>> ();
+        SortedList<int, List<int>> succ = new SortedList<int, List<int>>();
         SortedList<int, List<int>> pred = new SortedList<int, List<int>>();
         SortedList<int, List<int>> poids = new SortedList<int, List<int>>();
-        List<int>niveau = new List<int>();
-        List<Noeud>noeuds = new List<Noeud>();
-        List<DateTime>date_decouverte = new List<DateTime>();
+        List<int> niveau = new List<int>();
+        List<Noeud> noeuds = new List<Noeud>();
+        List<DateTime> date_decouverte = new List<DateTime>();
         List<DateTime> date_fin = new List<DateTime>();
-        List<int>degre = new List<int>();
+        List<int> degre = new List<int>();
         bool orientation = false;
         bool ponderation = false;
         int niv = 0;
@@ -43,7 +43,7 @@ namespace KC
         {
             this.orientation = Orientation();
             this.ponderation = Ponderation();
-            this.areteList = new List<(int, int)> { (1, 2),(2,1), (1, 3),(3,1), (1, 4),(4,1), (4, 2),(2,4), (4, 3),(3,4), (5, 1),(1,5), (6, 1),(1,6), (7, 1),(1,7), (7, 5),(5,7), (7, 6),(6,7), (8, 1),(1,8), (8, 3),(3,8), (8, 4),(4,8), (8, 2),(2,8), (9, 1),(1,9) ,(9, 3),(3,9), (10, 3),(3,10), (11, 1),(1,11), (11, 5),(5,11) ,(11, 6),(6,11), (12, 1),(1,12), (13, 1),(1,13), (13, 4),(4,13), (14, 1),(1,14), (14, 2),(2,14), (14, 3),(3,14), (14, 4),(4,14), (17, 6),(6,17), (17, 7),(7,17), (18, 1),(1,18), (18, 2),(2,18), (20, 1),(1,20), (20, 2),(2,20), (22, 5),(5,22), (22, 1),(1,22), (26, 24),(24,26), (26, 25),(25,26), (28, 3),(3,28), (28, 24),(24,28), (28, 25),(25,28), (29, 3),(3,29), (30, 24),(24,30), (30, 27),(27,30), (31, 2),(2,31), (31, 9),(9,31), (32, 1),(1,32), (32, 25),(25,31), (32, 26),(26,32), (32, 29),(29,32), (33, 9),(9,33), (33, 16), (33, 15),(15,33), (33, 19),(19,33), (33, 21),(21,33), (33, 23),(23,33), (33, 24),(24,33), (33, 30),(30,33), (33, 31),(31,33), (33, 32),(32,33), (34, 9),(9,34), (34, 16),(16,34), (34, 15),(15,34), (34, 19),(19,34), (34, 21),(21,34), (34, 23),(23,34), (34, 24),(24,34), (34, 30),(30,34), (34, 31),(31,34), (34, 32),(32,34), (34, 33),(33,34), (34, 10),(10,34), (34, 20),(20,34), (34, 27),(27,34), (34, 28),(28,34), (34, 29),(29,34) };
+            this.areteList = new List<(int, int)> { (1, 2), (2, 1), (1, 3), (3, 1), (1, 4), (4, 1), (4, 2), (2, 4), (4, 3), (3, 4), (5, 1), (1, 5), (6, 1), (1, 6), (7, 1), (1, 7), (7, 5), (5, 7), (7, 6), (6, 7), (8, 1), (1, 8), (8, 3), (3, 8), (8, 4), (4, 8), (8, 2), (2, 8), (9, 1), (1, 9), (9, 3), (3, 9), (10, 3), (3, 10), (11, 1), (1, 11), (11, 5), (5, 11), (11, 6), (6, 11), (12, 1), (1, 12), (13, 1), (1, 13), (13, 4), (4, 13), (14, 1), (1, 14), (14, 2), (2, 14), (14, 3), (3, 14), (14, 4), (4, 14), (17, 6), (6, 17), (17, 7), (7, 17), (18, 1), (1, 18), (18, 2), (2, 18), (20, 1), (1, 20), (20, 2), (2, 20), (22, 5), (5, 22), (22, 1), (1, 22), (26, 24), (24, 26), (26, 25), (25, 26), (28, 3), (3, 28), (28, 24), (24, 28), (28, 25), (25, 28), (29, 3), (3, 29), (30, 24), (24, 30), (30, 27), (27, 30), (31, 2), (2, 31), (31, 9), (9, 31), (32, 1), (1, 32), (32, 25), (25, 31), (32, 26), (26, 32), (32, 29), (29, 32), (33, 9), (9, 33), (33, 16), (33, 15), (15, 33), (33, 19), (19, 33), (33, 21), (21, 33), (33, 23), (23, 33), (33, 24), (24, 33), (33, 30), (30, 33), (33, 31), (31, 33), (33, 32), (32, 33), (34, 9), (9, 34), (34, 16), (16, 34), (34, 15), (15, 34), (34, 19), (19, 34), (34, 21), (21, 34), (34, 23), (23, 34), (34, 24), (24, 34), (34, 30), (30, 34), (34, 31), (31, 34), (34, 32), (32, 34), (34, 33), (33, 34), (34, 10), (10, 34), (34, 20), (20, 34), (34, 27), (27, 34), (34, 28), (28, 34), (34, 29), (29, 34) };
             this.sommet = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34 };
             this.matrice_ADJ = Matrice();
             this.matrice_incidence = Mat_Incidence();
@@ -52,7 +52,7 @@ namespace KC
             this.degre_max = Deg_Max();
             this.niv = 0;
             this.noeuds = N();
-            
+
 
         }
         /// <summary>
@@ -74,14 +74,14 @@ namespace KC
         /// </summary>
         public int Degre_Max
         {
-            get { return this.degre_max;}
+            get { return this.degre_max; }
         }
         /// <summary>
         /// Matrice d'incidence
         /// </summary>
-        public int[,]Matrice_Incidence
+        public int[,] Matrice_Incidence
         {
-            get { return this.matrice_incidence;}
+            get { return this.matrice_incidence; }
         }
         /// <summary>
         /// Liste des aretes(arc) du graphe
@@ -97,16 +97,16 @@ namespace KC
         /// </summary>
         public bool Planaire
         {
-            get {  return this.planaire; }
+            get { return this.planaire; }
         }
         /// <summary>
         /// Liste des sommets du graphe 
         /// </summary>
-        public List <int> Sommet
-            { 
+        public List<int> Sommet
+        {
             get { return sommet; }
-            set {  this.sommet = value; }
-            }
+            set { this.sommet = value; }
+        }
         /// <summary>
         /// Presence uniquement d'arete simple
         /// </summary>
@@ -124,7 +124,7 @@ namespace KC
         /// <summary>
         /// Degre du graphe
         /// </summary>
-        
+
         /// <summary>
         /// Presence d'un graphe NP connexe et  K-regulier  
         /// </summary>
@@ -136,13 +136,13 @@ namespace KC
         /// Egalite des degres des Noeuds d'un Graphe
         /// </summary>
         public bool Regulier
-        { 
-            get { return regulier; } 
+        {
+            get { return regulier; }
         }
         /// <summary>
         /// Propriete de la liste des Succcesseurs
         /// </summary>
-        public SortedList <int, List<int>> Succ
+        public SortedList<int, List<int>> Succ
         {
             get { return this.succ; }
             set { this.succ = value; }
@@ -153,14 +153,14 @@ namespace KC
         public SortedList<int, List<int>> Pred
         {
             get { return this.pred; }
-            set { this.pred = value;  }
+            set { this.pred = value; }
         }
         /// <summary>
         /// Presence de deux sous-ensembles liés entre-eux
         /// </summary>
         public bool Biparti
         {
-            get {return biparti;}
+            get { return biparti; }
         }
         /// <summary>
         /// Listes des niveaux des sommets
@@ -188,7 +188,7 @@ namespace KC
         /// </summary>
         public List<DateTime> Date_Fin
         {
-            get { return this.date_fin;}
+            get { return this.date_fin; }
         }
 
         /// <summary>
@@ -215,13 +215,13 @@ namespace KC
             string n = "";
             foreach (int s in Niv)
             {
-                 n+= Convert.ToString(s) + "|";
+                n += Convert.ToString(s) + "|";
             }
 
             Console.WriteLine();
             Console.WriteLine($"Ordre des Niveaux : {n}");
         }
-       
+
         /// <summary>
         /// Orientation du graphe
         /// </summary>
@@ -230,10 +230,10 @@ namespace KC
         {
             bool oriente = true;
             int n = this.Matrice_ADJ.GetLength(0);
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
-                for(int j = 0; j < n; j++)
-                    if (this.matrice_ADJ[i,j] == this.matrice_ADJ[j,i])
+                for (int j = 0; j < n; j++)
+                    if (this.matrice_ADJ[i, j] == this.matrice_ADJ[j, i])
                     {
                         oriente = false;
                     }
@@ -251,7 +251,7 @@ namespace KC
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
-                    if (this.matrice_ADJ[i,j] > 1)
+                    if (this.matrice_ADJ[i, j] > 1)
                     {
                         pondere = true;
                     }
@@ -263,45 +263,46 @@ namespace KC
         /// </summary>
         /// <returns></returns>
         public int[,] Matrice()
-        { 
+        {
             int n = Sommet.Count;
             int[,] Matrice_Adjacence = new int[n, n];
-           
-                    for(int i  = 0; i < n; i++)
+
+            for (int i = 0; i < n; i++)
             {
-                for(int j = 0; j < n;  j++)
+                for (int j = 0; j < n; j++)
                 {
                     Matrice_Adjacence[i, j] = Exist_Adjacence(Sommet[i], Sommet[j]);
                 }
             }
-                  
+
             return Matrice_Adjacence;
         }
-         /// <summary>
+        /// <summary>
         /// Couplage des aretes à un duo(sommet,sommet)
         /// </summary>
         /// <param name="s1"></param>
         /// <param name="s2"></param>
         /// <returns></returns>
-        public int Exist_Adjacence (int s1 , int s2)
+        public int Exist_Adjacence(int s1, int s2)
         {
-           
-               foreach (var arete in AreteList)
+
+            foreach (var arete in AreteList)
             {
-                if( (s1 == arete.Item1 &&  s2 == arete.Item2) )
+                if ((s1 == arete.Item1 && s2 == arete.Item2))
                 {
                     return 1;
                 }
-               
-            } return 0;
-              
-                
-         }
-           
+
+            }
+            return 0;
+
+
+        }
+
         /// <summary>
         /// Affichage de la matrice d'adjacence
         /// </summary>
-        public void Afficher_Adjacence (int[,]m)
+        public void Afficher_Adjacence(int[,] m)
         {
 
             for (int i = 0; i < m.GetLength(0); i++)
@@ -312,14 +313,14 @@ namespace KC
                     Console.Write("===");
                     k++;
                 }
-                
+
                 Console.WriteLine();
                 for (int j = 0; j < m.GetLength(1); j++)
                 {
                     string s = Convert.ToString($"|{m[i, j]}|");
-                    
+
                     Console.Write(s);
-                    
+
 
                 }
                 Console.WriteLine();
@@ -335,11 +336,11 @@ namespace KC
             int nb_Arcs = AreteList.Count;
             int nb_Sommets = Sommet.Count;
             int[,] m = new int[nb_Arcs, nb_Sommets];
-            for(int i = 0; i <  nb_Arcs; i++)
+            for (int i = 0; i < nb_Arcs; i++)
             {
-                for(int j = 0; j < nb_Sommets; j++)
+                for (int j = 0; j < nb_Sommets; j++)
                 {
-                    m[i,j] = Exist_Incidence(Sommet[j]);
+                    m[i, j] = Exist_Incidence(Sommet[j]);
                 }
             }
             return m;
@@ -359,20 +360,20 @@ namespace KC
                     //e = true;
                     return 1;
                 }
-                    if (arete.Item2 == s)
-                    {
-                        return  - 1;
-                    }
-             
+                if (arete.Item2 == s)
+                {
+                    return -1;
+                }
+
             }
             return 0;
-          
+
         }
 
-       /// <summary>
-       /// Affichage de la matrice d'incidence
-       /// </summary>
-       /// <param name="m"></param>
+        /// <summary>
+        /// Affichage de la matrice d'incidence
+        /// </summary>
+        /// <param name="m"></param>
         public void Afficher_Incidence(int[,] m)
         {
 
@@ -398,17 +399,17 @@ namespace KC
 
             }
         }
-        
+
         /// <summary>
         /// Permutation entre deux object de meme type
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        public void Permutation(object a ,object b)
+        public void Permutation(object a, object b)
         {
             object temp = new object();
-            temp.Equals (a);
-            a.Equals (b);
+            temp.Equals(a);
+            a.Equals(b);
             b.Equals(temp);
         }
 
@@ -416,29 +417,29 @@ namespace KC
         /// Initialisation de la liste des Successeurs
         /// </summary>
         /// <returns></returns>
-        public SortedList <int,List<int>> Liste_Succ()
+        public SortedList<int, List<int>> Liste_Succ()
         {
             int n = Sommet.Count;
-            SortedList<int,List<int>> Successeur = new SortedList<int, List<int>>(n);
-            for(int a = 0; a < n; a++)
+            SortedList<int, List<int>> Successeur = new SortedList<int, List<int>>(n);
+            for (int a = 0; a < n; a++)
             {
-                  Successeur[Sommet[a]] = new List<int>();
-                
+                Successeur[Sommet[a]] = new List<int>();
+
             }
-            for(int i = 0;i < this.matrice_ADJ.GetLength(0); i++)
+            for (int i = 0; i < this.matrice_ADJ.GetLength(0); i++)
             {
-               for(int j = 0;  j < this.matrice_ADJ.GetLength(1); j++)
+                for (int j = 0; j < this.matrice_ADJ.GetLength(1); j++)
                 {
                     if (this.matrice_ADJ[i, j] == 1)
                     {
 
                         Successeur[Sommet[j]].Add(Sommet[i]);
-                        
-                        
+
+
 
                     }
                 }
-                
+
             }
 
             return Successeur;
@@ -454,7 +455,7 @@ namespace KC
             SortedList<int, List<int>> Predecesseur = new SortedList<int, List<int>>(n);
             for (int a = 0; a < n; a++)
             {
-                    Predecesseur[Sommet[a]] = new List<int>();
+                Predecesseur[Sommet[a]] = new List<int>();
             }
             for (int i = 0; i < this.matrice_ADJ.GetLength(0); i++)
             {
@@ -477,7 +478,7 @@ namespace KC
         /// </summary>
         /// <param name="depart"></param>
         /// <returns></returns>
-        public List<int> DFS (Noeud depart)
+        public List<int> DFS(Noeud depart)
         {
             Stack<Noeud> DFS = new Stack<Noeud>();
             List<Noeud> Noeud_v = new List<Noeud>();
@@ -485,7 +486,7 @@ namespace KC
 
             try
             {
-              
+
                 depart.Couleur = Color.Yellow;
                 depart.date_Dec = depart.Decouverte();
                 depart.Degre = depart.Calcul_Degre(); ;
@@ -513,12 +514,12 @@ namespace KC
                                 {
 
                                     Noeud voisin = new Noeud(voisinage);
-                                    voisin.Niveau = y.Niveau + 1 ;
+                                    voisin.Niveau = y.Niveau + 1;
                                     voisin.Degre = voisin.Calcul_Degre();
                                     for (int i = 0; i < Noeud_v.Count; i++)
-                                      {
+                                    {
 
-                                        if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && Occurence(Noeud_v,voisin) < 1)
+                                        if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && Occurence(Noeud_v, voisin) < 1)
                                         {
                                             voisin.Couleur = Color.Yellow;
                                             voisin.date_Dec = voisin.Decouverte();
@@ -534,13 +535,13 @@ namespace KC
 
                                     }
                                 }
-                                
+
                             }
-                          
+
                         }
                     }
                 }
- 
+
             }
 
             catch (ArgumentNullException arg)
@@ -568,14 +569,14 @@ namespace KC
         /// Afficahge de l'ordre de visite d'une DFS
         /// </summary>
         /// <param name="DFS"></param>
-        public void Affichage_Ordre_DFS (List<int> DFS)
+        public void Affichage_Ordre_DFS(List<int> DFS)
         {
             string orden = "";
-            foreach( int s in DFS)
+            foreach (int s in DFS)
             {
-                orden += Convert.ToString(s)+"|";
+                orden += Convert.ToString(s) + "|";
             }
-            
+
             Console.WriteLine();
             Console.WriteLine($"L'ordre de visite : {orden}");
         }
@@ -680,11 +681,11 @@ namespace KC
         public void Affichage_Ordre_DFS_Noeud(List<Noeud> DFS)
         {
             Console.WriteLine();
-            string[] orden = new string [7];
+            string[] orden = new string[7];
             foreach (Noeud n in DFS)
             {
-                
-             for(int i = 0; i < 7; i++)
+
+                for (int i = 0; i < 7; i++)
                 {
                     orden[0] = Convert.ToString($"Sommet = {n.Sommet}");
                     orden[1] = Convert.ToString(n.Couleur);
@@ -694,13 +695,13 @@ namespace KC
                     orden[5] = Convert.ToString($"Degre = {n.Degre}");
                     orden[6] = Convert.ToString(n.Pred);
 
-                    
+
                     Console.WriteLine($"Proprietes de {n.Sommet}  : {orden[i]}");
                 }
                 Console.WriteLine();
             }
 
-           
+
         }
 
         /// <summary>
@@ -708,7 +709,7 @@ namespace KC
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public (List<int>,List<Noeud>)BFS (Noeud depart)
+        public (List<int>, List<Noeud>) BFS(Noeud depart)
         {
             Queue<Noeud> BFS = new Queue<Noeud>();
             List<Noeud> Noeud_v = new List<Noeud>();
@@ -792,7 +793,7 @@ namespace KC
                 string s = " (La Liste d'Adjacence)";
                 Console.WriteLine($" {ex.Source} , \n{ex.Message + s} ");
             }
-            return (Ordre,Noeud_v);
+            return (Ordre, Noeud_v);
 
 
         }
@@ -803,7 +804,7 @@ namespace KC
         /// <param name="depart"></param>
         /// <param name="arrivee"></param>
         /// <returns></returns>
-        public (bool,List<int>,List<Noeud>) Chemin(Noeud depart,Noeud arrivee)
+        public (bool, List<int>, List<Noeud>) Chemin(Noeud depart, Noeud arrivee)
         {
             Queue<Noeud> BFS = new Queue<Noeud>();
             List<Noeud> Noeud_v = new List<Noeud>();
@@ -860,15 +861,15 @@ namespace KC
                                             voisin.Pred[voisin.Sommet] = y.Sommet;
 
                                         }
-                                            if (voisin.Egale(arrivee, voisin))
-                                            {
-                                                chemin = true;
-                                                
-                                            
-                                                
-                                            }
+                                        if (voisin.Egale(arrivee, voisin))
+                                        {
+                                            chemin = true;
+
+
+
                                         }
-                                    
+                                    }
+
                                 }
 
                             }
@@ -876,7 +877,7 @@ namespace KC
                         }
                     }
                 }
-               
+
 
             }
 
@@ -901,8 +902,8 @@ namespace KC
             {
                 if (Ordre[p] == arrivee.Sommet)
                 {
-                     int index_arrivee = p;
-                    
+                    int index_arrivee = p;
+
                     Chemin = Ordre.GetRange(0, index_arrivee + 1);
                 }
             }
@@ -910,10 +911,10 @@ namespace KC
                 if (Noeud_v[i].Egale(arrivee, Noeud_v[i]))
                 {
                     int index_arrivee = i;
-                    
+
                     C = Noeud_v.GetRange(0, index_arrivee + 1);
                 }
-            return (chemin,Chemin,C);
+            return (chemin, Chemin, C);
 
 
         }
@@ -962,9 +963,9 @@ namespace KC
         /// <param name="arrivee"></param>
         /// <returns></returns>
 
-        public (bool,List<int>) Existence_Circuit(Noeud depart)
+        public (bool, List<int>) Existence_Circuit(Noeud depart)
         {
-            bool c = false; 
+            bool c = false;
             Stack<Noeud> DFS = new Stack<Noeud>();
             List<Noeud> Noeud_v = new List<Noeud>();
             List<int> Cycle = new List<int>();
@@ -1000,7 +1001,7 @@ namespace KC
                                     for (int i = 0; i < Noeud_v.Count; i++)
                                     {
 
-                                        if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && voisin.Couleur == Color.Yellow  && Occurence(Noeud_v,depart) == 1) 
+                                        if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && voisin.Couleur == Color.Yellow && Occurence(Noeud_v, depart) == 1)
                                         {
                                             c = true;
                                             Cir = Cycle;
@@ -1045,17 +1046,17 @@ namespace KC
             }
             catch (Exception ex)
             {
-                
+
                 Console.WriteLine($" {ex.Source} , \n{ex.Message} ");
             }
-            return (c,Cir);
+            return (c, Cir);
 
         }
         /// <summary>
         /// Affichage d'un circuit(cycle)
         /// </summary>
         /// <param name="C"></param>
-        public void Affichage_Ordre_Circuit((bool,List<int> Cycle)C)
+        public void Affichage_Ordre_Circuit((bool, List<int> Cycle) C)
         {
             string orden = "";
             foreach (int s in C.Item2)
@@ -1074,25 +1075,25 @@ namespace KC
         /// <param name="a"></param>
         /// <returns></returns>
 
-        
+
         public List<int[]> Composantes_Connexe()
         {
-            
+
             List<int[]> CFC = new List<int[]>();
-            List<(int,int)>Inverse_Arcs = AreteList;
+            List<(int, int)> Inverse_Arcs = AreteList;
             int Nombre_CFC = 0;
-            for(int i = 0;i<AreteList.Count;i++)
+            for (int i = 0; i < AreteList.Count; i++)
             {
-                (int,int) t = AreteList[i];
-                Permutation(t.Item1,t.Item2);
+                (int, int) t = AreteList[i];
+                Permutation(t.Item1, t.Item2);
             }
 
-            for(int i = 0; i < Sommet.Count; i++)
+            for (int i = 0; i < Sommet.Count; i++)
             {
                 Noeud n = new Noeud(Sommet[i]);
                 DFS(n);
                 //Tri_Sommet_Date(Sommet);
-                
+
             }
 
             return (CFC);
@@ -1111,31 +1112,31 @@ namespace KC
             bool connexe = false;
             int c = 0;
             List<int> Connexe = new List<int>();
-            foreach( int s in Sommet)
+            foreach (int s in Sommet)
             {
                 Noeud n = new Noeud(s);
                 Connexe = DFS(n);
-                if(Sommet.Count == Connexe.Count)
+                if (Sommet.Count == Connexe.Count)
                 {
                     c++;
                 }
             }
-            if(c == 34)
+            if (c == 34)
             {
                 connexe = true;
             }
             return connexe;
 
         }
-            
-        
+
+
         /// <summary>
         /// Existence d'un chemin entre deux Noeuds
         /// </summary>
         /// <param name="depart"></param>
         /// <param name="arrivee"></param>
         /// <returns></returns>
-        
+
 
 
         static void Tri_Croissant(List<int> L)
@@ -1169,10 +1170,10 @@ namespace KC
             static void Quick_Sort(List<int> L, int debut, int fin)
             {
                 int pivot;
-                if (debut < fin )
+                if (debut < fin)
                 {
                     pivot = (debut + fin) / 2;
-                    pivot = Partionner(L, debut , fin, pivot);
+                    pivot = Partionner(L, debut, fin, pivot);
                     Quick_Sort(L, debut, pivot - 1);
                     Quick_Sort(L, pivot + 1, fin);
 
@@ -1184,7 +1185,7 @@ namespace KC
         {
             static int Partionner(List<Noeud> L, int fin, int debut, int pivot)
             {
-                
+
                 Noeud resul = new Noeud();
                 resul = L[pivot];
                 L[pivot] = L[fin];
@@ -1315,20 +1316,20 @@ namespace KC
         /// <returns></returns>
         public List<Noeud> N()
         {
-            List<Noeud>noeud = new List<Noeud>(Sommet.Count);
-            for(int  j = 0;  j < noeud.Count; j++) 
+            List<Noeud> noeud = new List<Noeud>(Sommet.Count);
+            for (int j = 0; j < noeud.Count; j++)
             {
-                for(int i = 0; i < Sommet.Count;i++)
+                for (int i = 0; i < Sommet.Count; i++)
                 {
                     noeud[j] = new Noeud(Sommet[i]);
                     noeud[j].Degre = noeud[j].Calcul_Degre();
-                    
+
                 }
             }
             return noeud;
         }
-        
-        
+
+
         public void Affichage_Date_Fin(List<DateTime> Date_2_Fin)
         {
             string orden = "";
@@ -1365,17 +1366,17 @@ namespace KC
             //degre_maximum = this.degre.Max(); 
             return degre_maximum;
         }
-        
+
         /// <summary>
         /// Occurence d'un noeud dans une liste de noeuds 
         /// </summary>
         /// <param name="n"></param>
         /// <param name="n1"></param>
         /// <returns></returns>
-        public int Occurence(List<Noeud> n , Noeud n1 )
+        public int Occurence(List<Noeud> n, Noeud n1)
         {
-            int occ = 0 ;
-            for(int i = 0; i < n.Count; i++)
+            int occ = 0;
+            for (int i = 0; i < n.Count; i++)
             {
                 if (n[i].Sommet == n1.Sommet)
                 {
@@ -1398,7 +1399,7 @@ namespace KC
                 if (n[0].Sommet == n[i].Sommet)
                 {
                     occ++;
-                    if(occ == 2)
+                    if (occ == 2)
                     {
                         return true;
                     }
@@ -1406,5 +1407,49 @@ namespace KC
             }
             return o;
         }
+
+
+        public int[,] Mult(int[,] m, int[,] p)
+        {
+            int[,] matrice = new int[Matrice_ADJ.GetLength(0), Matrice_ADJ.GetLength(1)];
+            for (int i = 0; i < matrice.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrice.GetLength(1); j++)
+                {
+                    for (int k = 0; k < matrice.GetLength(0); k++)
+                    {
+                        matrice[i, k] = m[i, k] * p[k, j];
+                    }
+                }
+            }
+            return matrice;
+        }
+
+
+        public int Nb_2_Chemin(Noeud depart, Noeud arrivee, int longueur)
+        {
+            int[,] M = new int[matrice_ADJ.GetLength(0), matrice_ADJ.GetLength(1)];
+            //Puissance(longueur, Matrice_ADJ, Matrice_ADJ);
+            int Nombre_2_Chemin = 0;
+
+            if (longueur == 2)
+            {
+                M = Mult(Matrice_ADJ, Matrice_ADJ);
+                Nombre_2_Chemin = M[depart.Sommet, arrivee.Sommet];
+            }
+            if (longueur < 2)
+            {
+                return 1;
+            }
+            if (longueur > 2)
+            {
+
+                return Nombre_2_Chemin;
+            }
+                ;
+            return Nombre_2_Chemin;
+
+        }
     }
+
 }
