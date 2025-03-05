@@ -1425,28 +1425,56 @@ namespace KC
             return matrice;
         }
 
-
+        public int[,] Puissance(int[,] m, int n = 0)
+        {
+            int[,] puissance = new int[m.GetLength(0), m.GetLength(1)];
+            if(n == 1)
+            {
+                return m;
+            }
+            if(n == 0)
+            {
+                return puissance;
+            }
+            if(n > 2)
+            {
+                puissance = Puissance((Mult(m,m)),n--);
+            }
+            return Puissance(m);
+        }
         public int Nb_2_Chemin(Noeud depart, Noeud arrivee, int longueur)
         {
             int[,] M = new int[matrice_ADJ.GetLength(0), matrice_ADJ.GetLength(1)];
             //Puissance(longueur, Matrice_ADJ, Matrice_ADJ);
             int Nombre_2_Chemin = 0;
+            if(Chemin(depart,arrivee).Item1)
+            {
+                if (longueur == 2)
+                {
+                    M = Mult(Matrice_ADJ, Matrice_ADJ);
+                    Nombre_2_Chemin = M[depart.Sommet, arrivee.Sommet];
+                }
+                if (longueur < 2)
+                {
+                    if(longueur == 0)
+                    {
+                        return 0;
+                    }
+                    if(longueur == 1)
+                    {
+                        return 1;
+                    }
+                    
+                }
+                if (longueur > 2)
+                {
+                    //Nombre_2_Chemin = Nb_Chemin(Puissance((Mult(matrice_ADJ, matrice_ADJ)));
+                    return Nombre_2_Chemin;
+                }
 
-            if (longueur == 2)
-            {
-                M = Mult(Matrice_ADJ, Matrice_ADJ);
-                Nombre_2_Chemin = M[depart.Sommet, arrivee.Sommet];
             }
-            if (longueur < 2)
-            {
-                return 1;
-            }
-            if (longueur > 2)
-            {
 
-                return Nombre_2_Chemin;
-            }
-                ;
+
             return Nombre_2_Chemin;
 
         }

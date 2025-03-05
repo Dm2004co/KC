@@ -121,7 +121,7 @@ Graphe g = new Graphe();
 
                         break;
                     case 1:
-                        Console.WriteLine(" Selection  :  Chemin \n 0 : Existence de Chemin \n 1 : Affichage de Chemin ");
+                        Console.WriteLine(" Selection  :  Chemin \n 0 : Existence de Chemin \n 1 : Affichage de Chemin \n 2 : Nombre de Chemins ");
                         int chemin = Convert.ToInt32(Console.ReadLine());
                         switch(chemin)
                         {
