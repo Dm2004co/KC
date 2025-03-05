@@ -1449,6 +1449,8 @@ namespace KC
             int Nombre_2_Chemin = 0;
             if(Chemin(depart,arrivee).Item1)
             {
+                Noeud d = new Noeud(depart.Sommet);
+                Noeud a = new Noeud(arrivee.Sommet);
                 if (longueur == 2)
                 {
                     M = Mult(Matrice_ADJ, Matrice_ADJ);
@@ -1462,13 +1464,21 @@ namespace KC
                     }
                     if(longueur == 1)
                     {
-                        return 1;
+                        foreach(int voisin in Succ[depart.Sommet])
+                        {
+                            if (voisin == arrivee.Sommet)
+                            {
+                                return 1 ;
+                            }
+                            return 0;
+                        }
+                        
                     }
                     
                 }
                 if (longueur > 2)
                 {
-                    //Nombre_2_Chemin = Nb_Chemin(Puissance((Mult(matrice_ADJ, matrice_ADJ)));
+                    //Nombre_2_Chemin = Nb_2_Chemin(Puissance((Mult(matrice_ADJ, matrice_ADJ)));
                     return Nombre_2_Chemin;
                 }
 

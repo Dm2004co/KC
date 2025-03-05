@@ -32,7 +32,7 @@ Graphe g = new Graphe();
                 {
                     case 0:
                         
-                        Console.WriteLine($"\nLe graphe est connexe : {g.Connexe()}");
+                        Console.WriteLine($"\n Le graphe est connexe : {g.Connexe()}");
                         
                         break;
                     case 1:
@@ -121,7 +121,7 @@ Graphe g = new Graphe();
 
                         break;
                     case 1:
-                        Console.WriteLine(" Selection  :  Chemin \n 0 : Existence de Chemin \n 1 : Affichage de Chemin \n 2 : Nombre de Chemins ");
+                        Console.WriteLine(" Selection  :  Chemin \n 0 : Existence de Chemin \n 1 : Affichage de Chemin \n 2 : Nombre(s) de Chemins ");
                         int chemin = Convert.ToInt32(Console.ReadLine());
                         switch(chemin)
                         {

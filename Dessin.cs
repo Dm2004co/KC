@@ -86,13 +86,23 @@ namespace KC
             
             
         }
-        void Sugiyama()
+        void Optimisation()
         {
                     /*-Disposition circulaire 
-                - Attribution des niveaux 
+                - Attribution des niveaux (check)
                 - Red des croisements pour les sommets au niveau 1 
                 - Les sommets d'un même niveau sont sur le meme cercle .
                 */
+
+        }
+        void Sugiyama()
+        {
+            /*- Suppression des cycles/circuits 
+- Attribution des niveaux (check)
+- Red des croisements pour les sommets au niveau 1 
+- Les sommets d'un même niveau ont la même coordonnée y.
+Les coordonnées x sont déterminées en fonction de l'ordre des sommets et de l'espacement souhaité.
+*/
 
         }
 
