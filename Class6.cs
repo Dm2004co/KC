@@ -13,6 +13,7 @@ namespace KC
         int distance = 0;
         public void Djisktra()
         {
+            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
             Noeud n = new Noeud();
             Lien l = new Lien(n);
             List<int> P1 = new List<int>();
@@ -74,6 +75,7 @@ namespace KC
         }
         public void Bellman_Ford()
         {
+            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
             Noeud n = new Noeud();
             Lien l = new Lien(n);
             int V = g.Sommet.Count;
