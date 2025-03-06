@@ -23,7 +23,7 @@ namespace KC
             this.arete = (n,p);
             this.orientation = false;
             this.ponderation = false;
-            this.poids = 0;
+            this.poids = Calcul_Poids(n,p);
             this.distance = 0;
         }
         public Lien(Noeud n )
@@ -31,7 +31,7 @@ namespace KC
             this.orientation = false;
             this.ponderation = false;
             this.poids = 0;
-            this.distance = 0;
+            this.distance = this.poids;
         }
         /// <summary>
         /// Propirete d'une arete
@@ -86,8 +86,15 @@ namespace KC
         public int Calcul_Poids(Noeud a , Noeud b)
         {
             int poids = 0;
+            if(g.Chemin(a, b).Item1)
+            {
+                List<int> Chemin = g.Chemin(a, b).Item2;
+                poids = Chemin.Count;
+            }
+            
             return poids; 
         }
+        
 
     }
 }

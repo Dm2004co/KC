@@ -261,31 +261,23 @@ Graphe g = new Graphe();
         case 3: Coloration color = new Coloration();
                 break;
         case 4:
+        PCC pcc = new PCC();
         Console.WriteLine("PCC : Dijkstra (0) , Bellman-Ford (1) , Floyd-Marshall (2)");
         int selection = Convert.ToInt32(Console.ReadLine());
         switch(selection)
         {
+            
             case 0: Console.WriteLine("Choix de PCC : Dijkstra");
-                    Dijkstra();
-                void Dijkstra()
-                {
-
-                }
+                    pcc.Djisktra();
                 
                 break;
                 case 1: Console.WriteLine("Choix de PCC : Bellman-Ford");
-                        Bellman_Ford();
-                void Bellman_Ford()
-                {
-
-                }
+                        pcc.Bellman_Ford();
+                
                 break;
                 case 2: Console.WriteLine("Choix de PCC : Floyd");
-                        Floyd();
-                void Floyd()
-                {
-
-                }
+                        pcc.Floyd_Warshall();
+                
                 break;
                
         }

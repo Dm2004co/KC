@@ -27,7 +27,7 @@ namespace KC
         bool planaire = false;
         SortedList<int, List<int>> succ = new SortedList<int, List<int>>();
         SortedList<int, List<int>> pred = new SortedList<int, List<int>>();
-        SortedList<int, List<int>> poids = new SortedList<int, List<int>>();
+        List<(int, int)> poids = new List<(int,int)>();
         List<int> niveau = new List<int>();
         List<Noeud> noeuds = new List<Noeud>();
         List<DateTime> date_decouverte = new List<DateTime>();
@@ -54,6 +54,10 @@ namespace KC
             this.noeuds = N();
 
 
+        }
+        public List<(int,int)> Poids
+        {
+            get {  return this.poids;  }
         }
         /// <summary>
         ///  Propriete de la Ponderation des aretes(arcs)
