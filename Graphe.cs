@@ -960,6 +960,7 @@ namespace KC
 
 
         }
+        
         /// <summary>
         /// Presence d'un Cycle(Circuit) avec exemple si possible
         /// </summary>

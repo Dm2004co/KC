@@ -81,6 +81,7 @@ namespace KC
         {
             //Existence de Chemin entre a et b 
             //Calcul de distance avec le nombre de sommets renvoyes entre a et b
+            
             return this.distance;
         }
         public int Calcul_Poids(Noeud a , Noeud b)

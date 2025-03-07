@@ -232,7 +232,7 @@ namespace KC
             return false;
         }
 
-        public bool Superieu(Noeud n, Noeud a)
+        public bool Superieur(Noeud n, Noeud a)
         {
             if (n.Sommet > a.Sommet)
             {

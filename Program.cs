@@ -206,7 +206,7 @@ Graphe g = new Graphe();
             
             break;
         case 2:
-            Console.WriteLine("Modes : Liste d'adjacence (0) , \n Matrice d'adjacence (1) , \n Matrice d'incidence (2) , \n Liste des Predecesseurs(3), \n Listes des Noeuds(4) , \n Listes des Poids(5)");//Obligatoire
+            Console.WriteLine("Modes : Liste d'adjacence (0)  \n\tMatrice d'adjacence (1)  \n\tMatrice d'incidence (2) \n\tListe des Predecesseurs (3) \n\tListes des Noeuds (4)  \n\tListes des Poids (5)");//Obligatoire
             int choix = Convert.ToInt32(Console.ReadLine());
             switch (choix)
             {
@@ -233,18 +233,23 @@ Graphe g = new Graphe();
                         g.Afficher_Incidence(g.Matrice_Incidence);
                         break;
                 case 3: Console.WriteLine("Liste des Predecesseurs ");
-
-                        foreach (var key in g.Pred.Keys)
+                Affichage();
+                void Affichage()
+                {
+                    foreach (var key in g.Pred.Keys)
+                    {
+                        foreach (int value in g.Pred[key])
                         {
-                            foreach (int value in g.Pred[key])
-                            {
 
-                                Console.WriteLine($"Predecesseur(s) de {key} sont : {value} ");
-                            }
-                            Console.WriteLine();
-
-
+                            Console.WriteLine($"Predecesseur(s) de {key} sont : {value} ");
                         }
+                        Console.WriteLine();
+
+
+                    }
+                }
+                
+                       
                 break;
                 
                 case 4:
@@ -262,22 +267,72 @@ Graphe g = new Graphe();
                 break;
         case 4:
         PCC pcc = new PCC();
-        Console.WriteLine("PCC : Dijkstra (0) , Bellman-Ford (1) , Floyd-Marshall (2)");
+        Console.WriteLine("PCC : \tDijkstra (0)  \n\tBellman-Ford (1)  \n\tFloyd-Warshall (2)");
         int selection = Convert.ToInt32(Console.ReadLine());
         switch(selection)
         {
             
             case 0: Console.WriteLine("Choix de PCC : Dijkstra");
-                    pcc.Djisktra();
-                
+                    //pcc.Djisktra();
+                    //pcc.Affichage_Dijkstra(pcc.Djisktra().Item1);
+                    Console.WriteLine();
+                    //pcc.Afficher_FWR(pcc.Djisktra().Item2);
+
                 break;
                 case 1: Console.WriteLine("Choix de PCC : Bellman-Ford");
                         pcc.Bellman_Ford();
                 
                 break;
                 case 2: Console.WriteLine("Choix de PCC : Floyd");
-                        pcc.Floyd_Warshall();
-                
+                        Console.WriteLine("Modes : Liste d'adjacence (1)  \n \tMatrice d'adjacence (0)");
+                        int floyd = Convert.ToInt32(Console.ReadLine());
+                    switch(floyd)
+                    {
+                        case 0:
+                        Console.WriteLine("Selection :  Matrice de Floyd");
+                        int[,] FWR = pcc.Floyd_Warshall_Roy();
+                        Console.WriteLine("Matrice de FWR : ");
+                        pcc.Afficher_FWR(FWR);
+                        break;
+                        case 1:
+                        Console.WriteLine("Selection :  Liste de Succeseurs de Floyd");
+                        g.Succ = pcc.Liste_Succ();
+                        Affichage();
+                        void Affichage()
+                        {
+                            foreach (var key in g.Succ.Keys)
+                            {
+                                foreach (int value in g.Succ[key])
+                                {
+
+                                    Console.WriteLine($"Succeseur(s) de {key} sont : {value} ");
+                                }
+                                Console.WriteLine();
+
+
+                            }
+                        }
+                        break;
+                        case 2:Console.WriteLine("Selection : PCC (Floyd)");
+                            Floyd();
+                            break;
+
+                    }
+                        
+                        
+                void Floyd()
+                {
+                    Console.WriteLine("Depart : ");
+                    int depart = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Arrivee : ");
+                    int arrivee = Convert.ToInt32(Console.ReadLine());
+                    Noeud d = new Noeud(depart);
+                    Noeud a = new Noeud(arrivee);
+                    pcc.Affichage_FWR(pcc.PCC_FWR(d, a).Item2);
+                }
+                       
+                        
+                        
                 break;
                
         }
