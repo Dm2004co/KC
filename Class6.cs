@@ -112,9 +112,30 @@ namespace KC
             }
         }
 
-        public void Floyd_Warshall()
+        public int[,] Floyd_Warshall_Roy()
         {
-
+            
+            int n = g.Matrice_ADJ.GetLength(0);
+          
+            int nb_sommets = g.Sommet.Count;
+            int[,] Floyd = new int[n, n];
+            int[,] F = new int[n, n];
+            int[,] R = new int[n, n];
+            int[,] W = new int[n, n];
+            for (int i = 0; i <  n; i++)
+            {
+                for(int j = 0; j < n; j++)
+                {
+                    for (int k = 0; k < nb_sommets; k++)
+                    {
+                        R[i, j] = g.Matrice_ADJ[i, j];
+                        W[i, j] = g.Matrice_ADJ[i, k];
+                        F[i, j] = g.Matrice_ADJ[k, j];
+                        Floyd[i, j] = Math.Min(R[i, j], W[i, j] + F[i,j]);
+                    }
+                }
+            }
+            return Floyd;
         }
 
 
