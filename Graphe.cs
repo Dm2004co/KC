@@ -14,6 +14,7 @@ namespace KC
 {
     internal class Graphe
     {
+        
         List<(int, int)> areteList = new List<(int, int)>();
         List<int> sommet = new List<int>();
         int[,] matrice_ADJ = new int[34, 34];
@@ -52,7 +53,7 @@ namespace KC
             this.degre_max = Deg_Max();
             this.niv = 0;
             this.noeuds = N();
-
+            
 
         }
         public List<(int,int)> Poids
@@ -1429,28 +1430,48 @@ namespace KC
             }
             return matrice;
         }
-
-        public int[,] Puissance(int[,] m, int n = 0)
+        public int[,] I()
         {
-            int[,] puissance = new int[m.GetLength(0), m.GetLength(1)];
+            int[,] Id = new int[Matrice_ADJ.GetLength(0), Matrice_ADJ.GetLength(1)];
+            int n = Matrice_ADJ.GetLength(0);
+            for(int i = 0; i < n; i++)
+            {
+                Id[i, i] = 1;
+            }
+            return Id;
+        }
+
+        public int[,] Puissance(int[,] m, int n  , int[,] p = null ,int  o = 0)
+        {
+            void Identité()
+                {
+            p = I();
+            }
+            if(n == 0 && p == null)
+            {
+                Identité();
+            }
             if(n == 1)
             {
                 return m;
             }
-            if(n == 0)
+            
+            if (n < 2)
             {
-                return puissance;
+                return p;
             }
-            if(n > 2)
+            
+            if(n >= 2 )
             {
-                puissance = Puissance((Mult(m,m)),n--);
+                p = Puissance((Mult(m, m)),n--);
+                
             }
-            return Puissance(m);
+            return Puissance(Mult(p, m), n);
         }
         public int Nb_2_Chemin(Noeud depart, Noeud arrivee, int longueur)
         {
             int[,] M = new int[matrice_ADJ.GetLength(0), matrice_ADJ.GetLength(1)];
-            //Puissance(longueur, Matrice_ADJ, Matrice_ADJ);
+            
             int Nombre_2_Chemin = 0;
             if(Chemin(depart,arrivee).Item1)
             {
@@ -1458,7 +1479,7 @@ namespace KC
                 Noeud a = new Noeud(arrivee.Sommet);
                 if (longueur == 2)
                 {
-                    M = Mult(Matrice_ADJ, Matrice_ADJ);
+                    //M = Puissance(Matrice_ADJ);
                     Nombre_2_Chemin = M[depart.Sommet, arrivee.Sommet];
                 }
                 if (longueur < 2)
@@ -1483,8 +1504,8 @@ namespace KC
                 }
                 if (longueur > 2)
                 {
-                    //Nombre_2_Chemin = Nb_2_Chemin(Puissance((Mult(matrice_ADJ, matrice_ADJ)));
-                    return Nombre_2_Chemin;
+                   // M = Puissance(Matrice_ADJ);
+                    Nombre_2_Chemin = M[depart.Sommet, arrivee.Sommet];
                 }
 
             }

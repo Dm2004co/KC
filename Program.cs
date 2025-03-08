@@ -135,7 +135,10 @@ Graphe g = new Graphe();
                                 break;
                             case 2:
                                 Console.WriteLine(" Selection  : Nombre de Chemins ");
-                                Nb_Chemins();
+                                Console.WriteLine("Degre de la matrice resultante :");
+                                int degre = Convert.ToInt32(Console.ReadLine());
+                                g.Puissance(g.Matrice_ADJ,degre);
+                                //Nb_Chemins();
                                 break;
                         }
                         void Existence_Chemin()
@@ -284,7 +287,7 @@ Graphe g = new Graphe();
                 
                 break;
                 case 2: Console.WriteLine("Choix de PCC : Floyd");
-                        Console.WriteLine("Modes : Liste d'adjacence (1)  \n \tMatrice d'adjacence (0)");
+                        Console.WriteLine("Modes : Liste d'adjacence (1)  \n \tMatrice d'adjacence (0) \n\tAlgorithme de Parcours (2)");
                         int floyd = Convert.ToInt32(Console.ReadLine());
                     switch(floyd)
                     {
