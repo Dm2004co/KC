@@ -1463,7 +1463,7 @@ namespace KC
             
             if(n >= 2 )
             {
-                p = Puissance((Mult(m, m)),n--);
+                p = Puissance((Mult(m, m)), n);
                 
             }
             return Puissance(Mult(p, m), n);
