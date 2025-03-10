@@ -317,7 +317,15 @@ Graphe g = new Graphe();
                         }
                         break;
                         case 2:Console.WriteLine("Selection : PCC (Floyd)");
-                            Floyd();
+                        int f = Convert.ToInt32(Console.ReadLine());
+                        switch(f)
+                        {
+                            case 0:Console.WriteLine("Selection : Ordre de visite ");
+                                Floyd();
+                                break;
+                            case 1:Console.WriteLine("Selection : Noeud de visite");
+                        }
+                        //
                             break;
 
                     }
@@ -332,6 +340,16 @@ Graphe g = new Graphe();
                     Noeud d = new Noeud(depart);
                     Noeud a = new Noeud(arrivee);
                     pcc.Affichage_FWR(pcc.PCC_FWR(d, a).Item2);
+                }
+                void Floyd_Noeud()
+                {
+                    Console.WriteLine("Depart : ");
+                    int depart = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Arrivee : ");
+                    int arrivee = Convert.ToInt32(Console.ReadLine());
+                    Noeud d = new Noeud(depart);
+                    Noeud a = new Noeud(arrivee);
+                    pcc.Affichage_FWR_Noeud(pcc.PCC_FWR(d, a).Item3);
                 }
                        
                         

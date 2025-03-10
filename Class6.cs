@@ -62,11 +62,15 @@ namespace KC
                         maj = l.Calcul_Poids(n, s1) + l.Calcul_Poids(s1, s2);
                         s2.Pred[s2.Sommet] = s1.Sommet;
                         P1.Add(s2.Sommet);
+                        s2.Couleur = Color.Red;
+                        s2.date_Fin = s2.Fin();
                         Console.WriteLine($"{s2} rajouté à la liste P1");
                     }
                     else
                     {
                         P1.Add(s1.Sommet);
+                        s1.Couleur = Color.Red;
+                        s1.date_Fin = s1.Fin();
                         Console.WriteLine($"{s1} rajouté à la liste P1");
                     }
                     return maj;
@@ -145,6 +149,18 @@ namespace KC
         {
             string orden = "";
             foreach (int s in FWR)
+            {
+                orden += Convert.ToString(s) + "|";
+            }
+
+            Console.WriteLine();
+            Console.WriteLine($"L'ordre de visite : {orden}");
+        }
+
+        public void Affichage_FWR_Noeud(List<Noeud> FWR)
+        {
+            string orden = "";
+            foreach (Noeud s in FWR)
             {
                 orden += Convert.ToString(s) + "|";
             }

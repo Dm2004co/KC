@@ -1336,30 +1336,8 @@ namespace KC
         }
 
 
-        public void Affichage_Date_Fin(List<DateTime> Date_2_Fin)
-        {
-            string orden = "";
-            foreach (DateTime d in Date_2_Fin)
-            {
-                orden += Convert.ToString(d) + "|";
-            }
-
-            Console.WriteLine();
-            Console.WriteLine($"La liste des dates de Fin : {orden}");
-        }
-
-        public void Affichage_Date_Decouverte(List<DateTime> Date_2_Decouverte)
-        {
-            string orden = "";
-            foreach (DateTime d in Date_2_Decouverte)
-            {
-                orden += Convert.ToString(d) + "|";
-            }
-
-            Console.WriteLine();
-            Console.WriteLine($"La liste des dates de Fin : {orden}");
-        }
-
+        
+        
 
         /// <summary>
         /// Degre du graphe
