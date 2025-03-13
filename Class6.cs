@@ -157,16 +157,30 @@ namespace KC
             Console.WriteLine($"L'ordre de visite : {orden}");
         }
 
-        public void Affichage_FWR_Noeud(List<Noeud> FWR)
+        public void Affichage_Ordre_FWR_Noeud(List<Noeud> BFS)
         {
-            string orden = "";
-            foreach (Noeud s in FWR)
+            Console.WriteLine();
+            string[] orden = new string[7];
+            foreach (Noeud n in BFS)
             {
-                orden += Convert.ToString(s) + "|";
+
+                for (int i = 0; i < 7; i++)
+                {
+                    orden[0] = Convert.ToString($"Sommet = {n.Sommet}");
+                    orden[1] = Convert.ToString(n.Couleur);
+                    orden[2] = Convert.ToString(n.date_Dec);
+                    orden[3] = Convert.ToString(n.date_Fin);
+                    orden[4] = Convert.ToString($"Niveau = {n.Niveau}");
+                    orden[5] = Convert.ToString($"Degre = {n.Degre}");
+                    orden[6] = Convert.ToString(n.Pred);
+
+
+                    Console.WriteLine($"Proprietes de {n.Sommet}  : {orden[i]}");
+                }
+                Console.WriteLine();
             }
 
-            Console.WriteLine();
-            Console.WriteLine($"L'ordre de visite : {orden}");
+
         }
         public int[,] Floyd_Warshall_Roy()
         {
