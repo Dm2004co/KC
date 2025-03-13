@@ -3,7 +3,7 @@ Plusiseurs classes sont disponibles dans ce projet, ayant chacune des rôles pr�
 - Graphe ( Implémentation générale du graphe et sa caractérisation )  
 - Noeud ( Caractérisation d'un noeud )
 - Lien ( Caractérisation d'une arête )
-- PCC ( Implémentation des algorithmes de Plus Court Chemins pour les graphes orientés , non-orientés ou même pondéré .
+- PCC ( Implémentation des algorithmes de Plus Court Chemins pour les graphes orientés , non-orientés ou même pondérés .
 - Coloration ( Coloration d'un graphe )
 - Dessin ( Visualisation d'un graphe )
   Dans la classe Graphe , on y retrouve plusiseurs methodes ainsi que son contructeur naturel :
