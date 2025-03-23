@@ -20,8 +20,10 @@ namespace KC
             Lien l = new Lien(n);
             List<int> P1 = new List<int>();
             int[,] Dijsktra = new int[nb, nb];
-            List<(int, int)> P2 = new List<(int, int)>();
+            List<int> P2 = new List<int>();
             List<int> Q = g.Sommet;
+            int i = 0;
+            int j = 0;
             while (!g.Sommet.Contains(n.Sommet))
             {
                 l.Distance = 0;
@@ -32,28 +34,31 @@ namespace KC
                 Console.WriteLine($"Sommet de distance minimale : {s1}");
                 Noeud y = new Noeud(s1);
                 Q.Remove(s1);
+                P1.Add(s1);
+                Dijsktra[0,i] = s1;
                 Console.WriteLine("Q privé de s1");
                 foreach (int voisinage in g.Succ[y.Sommet])
                 {
+                    
                     if (g.Succ.TryGetValue(voisinage, out List<int>? value))
                     {
-                        if (g.Succ[voisinage].Count > 0)
+                        if (g.Succ[voisinage].Count > 0 &&  j < nb && i < nb )
                         {
 
                             Noeud voisin = new Noeud(voisinage);
                             int maj =
                             Maj_Distance(voisin, y);
                             Console.WriteLine(maj);
-                            for(int a = 0; a < nb; a++)
-                            {
-                                for(int b = 0; b < nb; b++)
-                                {
-                                    Dijsktra[a, b] = s1;
-                                }
-                            }
+                            Dijsktra[i, j] = voisinage;
+                            j++;
                         }
                     }
                 }
+                i++;
+                P2 = P1;
+                Affichage_Dijkstra(P2);
+                Console.WriteLine();
+                P1.Clear();
                 int Maj_Distance(Noeud s1, Noeud s2)
                 {
                     int maj = 0;
@@ -92,6 +97,7 @@ namespace KC
                     return n.Sommet;
                 }
             }
+            Afficher_Dijkstra(Dijsktra);
             return (P1,Dijsktra);
         }
 
@@ -142,6 +148,33 @@ namespace KC
                     //P1.Add(s1.Sommet);
                 }
                 return maj;
+            }
+        }
+
+        public void Afficher_Dijkstra(int[,] m)
+        {
+
+            for (int i = 0; i < m.GetLength(0); i++)
+            {
+                Console.WriteLine();
+                int k = 0;
+                while (k < m.GetLength(0))
+                {
+                    Console.Write("=");
+                    k++;
+                }
+
+                Console.WriteLine();
+                for (int j = 0; j < m.GetLength(1); j++)
+                {
+                    string s = Convert.ToString($"|{m[i, j]}");
+
+                    Console.Write(s);
+
+
+                }
+                Console.WriteLine();
+
             }
         }
 
@@ -222,7 +255,7 @@ namespace KC
                 Console.WriteLine();
                 for (int j = 0; j < m.GetLength(1); j++)
                 {
-                    string s = Convert.ToString($"|{m[i, j]}|");
+                    string s = Convert.ToString($"|{m[i, j]}");
 
                     Console.Write(s);
 

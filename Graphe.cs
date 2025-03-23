@@ -14,7 +14,7 @@ namespace KC
 {
     internal class Graphe
     {
-        
+
         List<(int, int)> areteList = new List<(int, int)>();
         List<int> sommet = new List<int>();
         int[,] matrice_ADJ = new int[34, 34];
@@ -28,7 +28,7 @@ namespace KC
         bool planaire = false;
         SortedList<int, List<int>> succ = new SortedList<int, List<int>>();
         SortedList<int, List<int>> pred = new SortedList<int, List<int>>();
-        List<(int, int)> poids = new List<(int,int)>();
+        List<(int, int)> poids = new List<(int, int)>();
         List<int> niveau = new List<int>();
         List<Noeud> noeuds = new List<Noeud>();
         List<DateTime> date_decouverte = new List<DateTime>();
@@ -53,12 +53,12 @@ namespace KC
             this.degre_max = Deg_Max();
             this.niv = 0;
             this.noeuds = N();
-            
+
 
         }
-        public List<(int,int)> Poids
+        public List<(int, int)> Poids
         {
-            get {  return this.poids;  }
+            get { return this.poids; }
         }
         /// <summary>
         ///  Propriete de la Ponderation des aretes(arcs)
@@ -961,7 +961,7 @@ namespace KC
 
 
         }
-        
+
         /// <summary>
         /// Presence d'un Cycle(Circuit) avec exemple si possible
         /// </summary>
@@ -1336,8 +1336,8 @@ namespace KC
         }
 
 
-        
-        
+
+
 
         /// <summary>
         /// Degre du graphe
@@ -1412,46 +1412,46 @@ namespace KC
         {
             int[,] Id = new int[Matrice_ADJ.GetLength(0), Matrice_ADJ.GetLength(1)];
             int n = Matrice_ADJ.GetLength(0);
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 Id[i, i] = 1;
             }
             return Id;
         }
 
-        public int[,] Puissance(int[,] m, int n  , int[,] p = null ,int  o = 0)
+        public int[,] Puissance(int[,] m, int n, int[,] p = null, int o = 0)
         {
             void Identité()
-                {
-            p = I();
+            {
+                p = I();
             }
-            if(n == 0 && p == null)
+            if (n == 0 && p == null)
             {
                 Identité();
             }
-            if(n == 1)
+            if (n == 1)
             {
                 return m;
             }
-            
+
             if (n < 2)
             {
                 return p;
             }
-            
-            if(n >= 2 )
+
+            if (n >= 2)
             {
                 p = Puissance((Mult(m, m)), n);
-                
+
             }
             return Puissance(Mult(p, m), n);
         }
         public int Nb_2_Chemin(Noeud depart, Noeud arrivee, int longueur)
         {
             int[,] M = new int[matrice_ADJ.GetLength(0), matrice_ADJ.GetLength(1)];
-            
+
             int Nombre_2_Chemin = 0;
-            if(Chemin(depart,arrivee).Item1)
+            if (Chemin(depart, arrivee).Item1)
             {
                 Noeud d = new Noeud(depart.Sommet);
                 Noeud a = new Noeud(arrivee.Sommet);
@@ -1462,27 +1462,27 @@ namespace KC
                 }
                 if (longueur < 2)
                 {
-                    if(longueur == 0)
+                    if (longueur == 0)
                     {
                         return 0;
                     }
-                    if(longueur == 1)
+                    if (longueur == 1)
                     {
-                        foreach(int voisin in Succ[depart.Sommet])
+                        foreach (int voisin in Succ[depart.Sommet])
                         {
                             if (voisin == arrivee.Sommet)
                             {
-                                return 1 ;
+                                return 1;
                             }
                             return 0;
                         }
-                        
+
                     }
-                    
+
                 }
                 if (longueur > 2)
                 {
-                   // M = Puissance(Matrice_ADJ);
+                    // M = Puissance(Matrice_ADJ);
                     Nombre_2_Chemin = M[depart.Sommet, arrivee.Sommet];
                 }
 
@@ -1490,6 +1490,25 @@ namespace KC
 
 
             return Nombre_2_Chemin;
+
+        }
+        public int Calcul_Niveau(int sommet)
+        {
+            int o = 0;
+            int i = 0;
+            while (Succ[sommet].Count > 0)
+            {
+                foreach (var s in Succ.Keys)
+                {
+                    
+                        for(int j = 0; j < Succ[sommet].Count; j++)
+                        {
+                            
+                        }
+                  
+                }
+            }
+            return o;
 
         }
     }

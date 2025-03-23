@@ -277,7 +277,7 @@ Graphe g = new Graphe();
             
             case 0: Console.WriteLine("Choix de PCC : Dijkstra");
                     //pcc.Djisktra();
-                    //pcc.Affichage_Dijkstra(pcc.Djisktra().Item1);
+                    pcc.Affichage_Dijkstra(pcc.Djisktra().Item1);
                     Console.WriteLine();
                     //pcc.Afficher_FWR(pcc.Djisktra().Item2);
 
