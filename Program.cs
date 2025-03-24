@@ -174,8 +174,8 @@ Graphe g = new Graphe();
                     
                     break;
             case 1:
-                    Console.WriteLine("Choix de parcours : DFS ");
-                    Console.WriteLine("DFS : \n 0 : Ordre de visite \n 1 : Noeuds visités  ");
+                    Console.WriteLine("Choix de parcours : DFS \n 0 : Ordre de visite \n 1 : Noeuds visités  ");
+                   
                     int dfs = Convert.ToInt32(Console.ReadLine());
                     switch (dfs)
                     {
@@ -209,7 +209,7 @@ Graphe g = new Graphe();
             
             break;
         case 2:
-            Console.WriteLine("Modes : Liste d'adjacence (0)  \n\tMatrice d'adjacence (1)  \n\tMatrice d'incidence (2) \n\tListe des Predecesseurs (3) \n\tListes des Noeuds (4)  \n\tListes des Poids (5)");//Obligatoire
+            Console.WriteLine("Modes : 0 : Liste d'adjacence   \n\t1 : Matrice d'adjacence  \n\t2 : Matrice d'incidence \n\t3 : Liste des Predecesseurs \n\t4 : Listes des Noeuds  \n\t5 : Listes des Poids");//Obligatoire
             int choix = Convert.ToInt32(Console.ReadLine());
             switch (choix)
             {
@@ -270,16 +270,26 @@ Graphe g = new Graphe();
                 break;
         case 4:
         PCC pcc = new PCC();
-        Console.WriteLine("PCC : \tDijkstra (0)  \n\tBellman-Ford (1)  \n\tFloyd-Warshall (2)");
+        Console.WriteLine("PCC : \t0 : Dijkstra  \n\t1 : Bellman-Ford  \n\t2 : Floyd-Warshall");
         int selection = Convert.ToInt32(Console.ReadLine());
         switch(selection)
         {
             
-            case 0: Console.WriteLine("Choix de PCC : Dijkstra");
-                    //pcc.Djisktra();
-                    pcc.Affichage_Dijkstra(pcc.Djisktra().Item1);
+            case 0: Console.WriteLine("Choix de PCC : Dijkstra \n\t0 : Ordre de visite \n\t1 : Ordre de visite + Matrice de Dijkstra");
+                    int dijkstra = Convert.ToInt32(Console.ReadLine());
+                switch(dijkstra)
+                {
+                    case 0: Console.WriteLine("Selection : Ordre de visite ");
+                            pcc.Affichage_Dijkstra(pcc.Djisktra().Item1);
+                        break;
+                    case 1: Console.WriteLine("Selection : Ordre de visite + Matrice de Dijkstra");
+                            pcc.Afficher_FWR(pcc.Djisktra().Item2);
+                        break;
+                }
+                    
+                    
                     Console.WriteLine();
-                    //pcc.Afficher_FWR(pcc.Djisktra().Item2);
+                   
 
                 break;
                 case 1: Console.WriteLine("Choix de PCC : Bellman-Ford");
@@ -287,7 +297,7 @@ Graphe g = new Graphe();
                 
                 break;
                 case 2: Console.WriteLine("Choix de PCC : Floyd");
-                        Console.WriteLine("Modes : Liste d'adjacence (1)  \n \tMatrice d'adjacence (0) \n\tAlgorithme de Parcours (2)");
+                        Console.WriteLine("Modes : 0 : Matrice d'adjacence  \n\t1 : Liste d'adjacence \n\t2 : Algorithme de Parcours");
                         int floyd = Convert.ToInt32(Console.ReadLine());
                     switch(floyd)
                     {
@@ -316,14 +326,14 @@ Graphe g = new Graphe();
                             }
                         }
                         break;
-                        case 2:Console.WriteLine("Selection : PCC (Floyd)");
+                        case 2:Console.WriteLine("Selection : PCC (Floyd) \n\t 0 : Ordre de visite \n\t  1 : Noeuds visités");
                         int f = Convert.ToInt32(Console.ReadLine());
                         switch(f)
                         {
                             case 0:Console.WriteLine("Selection : Ordre de visite ");
                                 Floyd();
                                 break;
-                            case 1:Console.WriteLine("Selection : Noeud de visite");
+                            case 1:Console.WriteLine("Selection : Noeuds visités");
                                 Floyd_Noeud();
                                 break;
                         }

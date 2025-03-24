@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -22,39 +23,44 @@ namespace KC
             int[,] Dijsktra = new int[nb, nb];
             List<int> P2 = new List<int>();
             List<int> Q = g.Sommet;
+            List<Noeud> P3 = new List<Noeud>();
+            List<Noeud> P4 = new List<Noeud>();
             int i = 0;
             int j = 0;
             while (!g.Sommet.Contains(n.Sommet))
             {
                 l.Distance = 0;
             }
-            while (Q.Count > 0)
+            while (Q.Count > 0 && i < nb && j < nb)
             {
+               
                 int s1 = Min();
                 Console.WriteLine($"Sommet de distance minimale : {s1}");
                 Noeud y = new Noeud(s1);
                 Q.Remove(s1);
                 P1.Add(s1);
-                Dijsktra[0,i] = s1;
+                //Dijsktra[0,i] = s1;
                 Console.WriteLine("Q privé de s1");
                 foreach (int voisinage in g.Succ[y.Sommet])
                 {
                     
                     if (g.Succ.TryGetValue(voisinage, out List<int>? value))
                     {
-                        if (g.Succ[voisinage].Count > 0 &&  j < nb && i < nb )
+                        if (g.Succ[voisinage].Count > 0 )
                         {
 
                             Noeud voisin = new Noeud(voisinage);
                             int maj =
                             Maj_Distance(voisin, y);
                             Console.WriteLine(maj);
-                            Dijsktra[i, j] = voisinage;
-                            j++;
+                            //Dijsktra[i, j] = voisinage;
+                            Dijsktra = Matrice_Dijkstra(s1, voisinage);
+                            
                         }
                     }
+                    
                 }
-                i++;
+               
                 P2 = P1;
                 Affichage_Dijkstra(P2);
                 Console.WriteLine();
@@ -112,12 +118,27 @@ namespace KC
             Console.WriteLine();
             Console.WriteLine($"L'ordre de visite : {orden}");
         }
+        public int[,] Matrice_Dijkstra(int s ,int voisin)
+        {
+            int n = g.Sommet.Count;
+            int[,] d = new int[n, n];
+            for(int i = 0;  i < n; i++ )
+            {
+                d[0, i] = s;
+                for (int j = 0; j < n; j++)
+                {
+                    d[j, i] = voisin;
+                }
+            }
+            return d;
+        }
         public void Bellman_Ford()
         {
             Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
             Noeud n = new Noeud();
             Lien l = new Lien(n);
             int V = g.Sommet.Count;
+            (bool, int) visite = (false, 0);
 
             for(int  i = 0; i < V; i++)
             {
@@ -128,6 +149,13 @@ namespace KC
                         Noeud u = new Noeud(ar.Item1);
                         Noeud v = new Noeud(ar.Item2);
                         Maj_Distance(u,v);
+                        
+                        visite.Item2 = u.Sommet;
+                        while(!visite.Item1)
+                        {
+                            visite.Item1 = true;
+                            u.Pred[u.Sommet] = u.Sommet;
+                        }
                         // Verification de l'existence d'un cycle/circuit absorbant
                     }
                     
