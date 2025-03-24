@@ -97,7 +97,7 @@ namespace KC
                     return n.Sommet;
                 }
             }
-            Afficher_Dijkstra(Dijsktra);
+            //Afficher_Dijkstra(Dijsktra);
             return (P1,Dijsktra);
         }
 
@@ -148,7 +148,7 @@ namespace KC
                     //P1.Add(s1.Sommet);
                 }
                 return maj;
-            }
+            }   
         }
 
         public void Afficher_Dijkstra(int[,] m)
@@ -160,7 +160,7 @@ namespace KC
                 int k = 0;
                 while (k < m.GetLength(0))
                 {
-                    Console.Write("=");
+                    Console.Write("==");
                     k++;
                 }
 
@@ -170,8 +170,6 @@ namespace KC
                     string s = Convert.ToString($"|{m[i, j]}");
 
                     Console.Write(s);
-
-
                 }
                 Console.WriteLine();
 

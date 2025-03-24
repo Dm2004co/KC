@@ -1492,25 +1492,7 @@ namespace KC
             return Nombre_2_Chemin;
 
         }
-        public int Calcul_Niveau(int sommet)
-        {
-            int o = 0;
-            int i = 0;
-            while (Succ[sommet].Count > 0)
-            {
-                foreach (var s in Succ.Keys)
-                {
-                    
-                        for(int j = 0; j < Succ[sommet].Count; j++)
-                        {
-                            
-                        }
-                  
-                }
-            }
-            return o;
-
-        }
+        
     }
 
 }
