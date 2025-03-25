@@ -15,7 +15,8 @@ namespace KC
 {
     internal class Noeud
     {
-       static Graphe g = new Graphe();
+        #region Attributs
+        static Graphe g = new Graphe();
         int sommet;
         SortedList<int, int> pred= new SortedList<int, int>();
         int degre;
@@ -23,9 +24,13 @@ namespace KC
         int niveau;
         DateTime date_dec;
         DateTime date_fin;
-         /// <summary>
-         /// Constructeur naturel de Noeud
-         /// </summary>
+        #endregion
+
+        #region Constructeurs
+        /// <summary>
+        /// Constructeur naturel de Noeud
+        /// </summary>
+
         public Noeud()
         {
             string imput = Console.ReadLine(); 
@@ -53,6 +58,8 @@ namespace KC
             this.date_fin = Fin();
             this.date_dec = Decouverte();
         }
+        #endregion
+        #region Proprietes
         /// <summary>
         /// Propriete du Niveau d'un Sommet
         /// </summary>
@@ -120,7 +127,9 @@ namespace KC
         /// Selection d'un Sommet avec des Contraintes 
         /// </summary>
         /// <returns></returns>
-        public  static int Insertion_Sommet( string n )
+
+        #endregion
+        public static int Insertion_Sommet( string n )
         {
             int a = Convert.ToInt32(n);
             
@@ -174,10 +183,7 @@ namespace KC
             return deg;
         }
 
-       
-
-
-        
+        #region Dates(Date de Fin et de Decouverte)
         /// <summary>
         /// Initialisation de la date de decouverte
         /// </summary>
@@ -209,12 +215,16 @@ namespace KC
             }
             return this.date_fin;
         }
+
+        #endregion
+        #region Méthodes de Comparaison
         /// <summary>
         /// Methode de verification de l'egalite des noeuds
         /// </summary>
         /// <param name="n"></param>
         /// <param name="a"></param>
         /// <returns></returns>
+
         public bool Egale(Noeud n , Noeud a )
         {
             if(n.Sommet == a.Sommet)
@@ -241,6 +251,6 @@ namespace KC
             return false;
         }
 
-
+        #endregion
     }
 }

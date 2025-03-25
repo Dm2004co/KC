@@ -65,7 +65,7 @@ Graphe g = new Graphe();
                                 Noeud n = new Noeud(g.Sommet[i]);
                                 if((g.Existence_Circuit(n).Item1) == true)
                                 {
-                                    g.Affichage_Ordre_Circuit((g.Existence_Circuit(n)));
+                                   // g.Affichage_Ordre_Circuit((g.Existence_Circuit(n).Item2));
                                 }
                                 
                             }
@@ -275,16 +275,22 @@ Graphe g = new Graphe();
         switch(selection)
         {
             
-            case 0: Console.WriteLine("Choix de PCC : Dijkstra \n\t0 : Ordre de visite \n\t1 : Ordre de visite + Matrice de Dijkstra");
+            case 0: Console.WriteLine("Choix de PCC : Dijkstra \n\t0 : Noeuds visités à partir d'une source unique (y compris l'ordre de visite) \n\t1 : Recherche du PCC entre deux sommets ");
                     int dijkstra = Convert.ToInt32(Console.ReadLine());
                 switch(dijkstra)
                 {
-                    case 0: Console.WriteLine("Selection : Ordre de visite ");
-                            pcc.Affichage_Dijkstra(pcc.Djisktra().Item1);
-                        break;
-                    case 1: Console.WriteLine("Selection : Ordre de visite + Matrice de Dijkstra");
-                            pcc.Afficher_FWR(pcc.Djisktra().Item2);
-                        break;
+                   
+                    case 0: Console.WriteLine("Selection : Noeuds visités à partir d'une source unique (y compris l'ordre de visite) ");
+                        pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Djisktra().Item3);
+                        void Recherche()
+                        {
+                            Console.WriteLine("Selection : 1 : Recherche du PCC entre deux sommets ");
+                            Noeud source = new Noeud(pcc.Djisktra().Item5);
+                            Noeud arrivee = new Noeud();
+                            pcc.Recherche_Chemin(source, arrivee);
+                        }
+                     
+                            break;
                 }
                     
                     
@@ -326,7 +332,7 @@ Graphe g = new Graphe();
                             }
                         }
                         break;
-                        case 2:Console.WriteLine("Selection : PCC (Floyd) \n\t 0 : Ordre de visite \n\t  1 : Noeuds visités");
+                        case 2:Console.WriteLine("Selection : PCC (Floyd) \n\t 0 : Ordre de visite \n\t 1 : Noeuds visités");
                         int f = Convert.ToInt32(Console.ReadLine());
                         switch(f)
                         {
@@ -351,6 +357,14 @@ Graphe g = new Graphe();
                     int arrivee = Convert.ToInt32(Console.ReadLine());
                     Noeud d = new Noeud(depart);
                     Noeud a = new Noeud(arrivee);
+                    if (g.Chemin(d, a).Item1)
+                    {
+                        pcc.Affichage_FWR(pcc.PCC_FWR(d, a).Item2);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Un chemin n'existe pas");
+                    }
                     pcc.Affichage_FWR(pcc.PCC_FWR(d, a).Item2);
                 }
                 void Floyd_Noeud()
@@ -361,7 +375,15 @@ Graphe g = new Graphe();
                     int arrivee = Convert.ToInt32(Console.ReadLine());
                     Noeud d = new Noeud(depart);
                     Noeud a = new Noeud(arrivee);
-                    pcc.Affichage_Ordre_FWR_Noeud(pcc.PCC_FWR(d, a).Item3);
+                    if (g.Chemin(d,a).Item1)
+                    {
+                        pcc.Affichage_Ordre_FWR_Noeud(pcc.PCC_FWR(d, a).Item3);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Un chemin n'existe pas");
+                    }
+                   
                 }
                        
                         

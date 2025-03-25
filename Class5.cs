@@ -9,10 +9,11 @@ namespace KC
 {
     internal class Coloration
     {
+        #region Attributs
         int nombre_chrmatique;
         List<Color> Couleur = [Color.Yellow,Color.Blue,Color.Green,Color.Red];
          static Graphe g = new Graphe();
-        
+        #endregion
         public void Welsh_Powell()
         {
             List<Noeud> S = new List<Noeud>(g.Sommet.Count); 

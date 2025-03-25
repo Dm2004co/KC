@@ -8,13 +8,16 @@ namespace KC
 {
     internal class Lien
     {
-
+        #region Attributs
         static Graphe g = new Graphe();
         (Noeud, Noeud) arete;
         bool orientation;
         bool ponderation;
         int poids;
         int distance;
+        #endregion
+
+        #region Propriete
         /// <summary>
         /// Constructeur naturel de la classe Lien
         /// </summary>
@@ -76,7 +79,8 @@ namespace KC
             get { return this.poids; }
             set { this.poids = value; }
         }
-       
+
+        #endregion
         public int Calcul_Distance(Noeud a , Noeud b)
         {
             //Existence de Chemin entre a et b 

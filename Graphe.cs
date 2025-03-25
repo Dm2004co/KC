@@ -969,7 +969,7 @@ namespace KC
         /// <param name="arrivee"></param>
         /// <returns></returns>
 
-        public (bool, List<int>) Existence_Circuit(Noeud depart)
+        public (bool, List<int>, int) Existence_Circuit(Noeud depart, int poids = 0)
         {
             bool c = false;
             Stack<Noeud> DFS = new Stack<Noeud>();
@@ -1003,11 +1003,11 @@ namespace KC
                                 {
 
                                     Noeud voisin = new Noeud(voisinage);
-
+                                    Lien l = new Lien(y, voisin);
                                     for (int i = 0; i < Noeud_v.Count; i++)
                                     {
 
-                                        if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && voisin.Couleur == Color.Yellow && Occurence(Noeud_v, depart) == 1)
+                                        if (!Noeud_v[i].Egale(voisin, Noeud_v[i]) && voisin.Couleur == Color.Yellow && Occurence(Noeud_v, depart) == 1 || poids < 0)
                                         {
                                             c = true;
                                             Cir = Cycle;
@@ -1023,7 +1023,7 @@ namespace KC
                                             DFS.Push(voisin);
                                             //Console.WriteLine($"Noeud : {voisin.Sommet}, rajouté dans la pile");
                                             voisin.Pred[voisin.Sommet] = y.Sommet;
-
+                                            poids += l.Poids;
 
                                         }
 
@@ -1055,7 +1055,7 @@ namespace KC
 
                 Console.WriteLine($" {ex.Source} , \n{ex.Message} ");
             }
-            return (c, Cir);
+            return (c, Cir, poids);
 
         }
         /// <summary>

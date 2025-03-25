@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO.IsolatedStorage;
@@ -12,35 +13,39 @@ namespace KC
     internal class PCC
     {
         static Graphe g = new Graphe();
-        int distance = 0;
-        public (List<int>,int[,]) Djisktra()
+        
+        public (List<int>, List<List<Noeud>>,List<Noeud>,List<List<int>>,int) Djisktra()
         {
-            Console.WriteLine(" Choissisez une source (noeud de depart) entre 1 et 34 (compris) : ");
+            Console.WriteLine("Choissisez une source (noeud de depart) entre 1 et 34 (compris) : ");
             int nb = g.Sommet.Count;
             Noeud n = new Noeud();
+            int a =  Convert.ToInt32(Console.ReadLine());
             Lien l = new Lien(n);
             List<int> P1 = new List<int>();
-            int[,] Dijsktra = new int[nb, nb];
             List<int> P2 = new List<int>();
             List<int> Q = g.Sommet;
             List<Noeud> P3 = new List<Noeud>();
             List<Noeud> P4 = new List<Noeud>();
+            List<List<Noeud>> N2 = new List<List<Noeud>>();
+            List<List<int>> N1 = new List<List<int>>();
             int i = 0;
-            int j = 0;
+            P1.Add(n.Sommet);
+            P3.Add(n);
             while (!g.Sommet.Contains(n.Sommet))
             {
                 l.Distance = 0;
             }
-            while (Q.Count > 0 && i < nb && j < nb)
+            while (Q.Count > 0 )
             {
-               
+                Noeud[] t = new Noeud[nb];
                 int s1 = Min();
                 Console.WriteLine($"Sommet de distance minimale : {s1}");
                 Noeud y = new Noeud(s1);
                 Q.Remove(s1);
                 P1.Add(s1);
-                //Dijsktra[0,i] = s1;
-                Console.WriteLine("Q privé de s1");
+                P3.Add(y);
+               
+               // Console.WriteLine("Q privé de s1");
                 foreach (int voisinage in g.Succ[y.Sommet])
                 {
                     
@@ -52,19 +57,24 @@ namespace KC
                             Noeud voisin = new Noeud(voisinage);
                             int maj =
                             Maj_Distance(voisin, y);
-                            Console.WriteLine(maj);
-                            //Dijsktra[i, j] = voisinage;
-                            Dijsktra = Matrice_Dijkstra(s1, voisinage);
+                            
                             
                         }
                     }
                     
                 }
-               
+                
                 P2 = P1;
+                P4 = P3;
+                N1.Add(P2);
+                N2.Add(P4);
                 Affichage_Dijkstra(P2);
                 Console.WriteLine();
+                Affichage_Ordre_Dijkstra_Noeud(P4);
+                Console.WriteLine();
                 P1.Clear();
+                P3.Clear();
+                
                 int Maj_Distance(Noeud s1, Noeud s2)
                 {
                     int maj = 0;
@@ -73,16 +83,18 @@ namespace KC
                         maj = l.Calcul_Poids(n, s1) + l.Calcul_Poids(s1, s2);
                         s2.Pred[s2.Sommet] = s1.Sommet;
                         P1.Add(s2.Sommet);
+                        P3.Add(s2);
                         s2.Couleur = Color.Red;
                         s2.date_Fin = s2.Fin();
-                        Console.WriteLine($"{s2} rajouté à la liste P1");
+                        //Console.WriteLine($"{s2} rajouté à la liste P1");
                     }
                     else
                     {
                         P1.Add(s1.Sommet);
+                        P3.Add(s1);
                         s1.Couleur = Color.Red;
                         s1.date_Fin = s1.Fin();
-                        Console.WriteLine($"{s1} rajouté à la liste P1");
+                        //Console.WriteLine($"{s1} rajouté à la liste P1");
                     }
                     return maj;
                 }
@@ -104,7 +116,7 @@ namespace KC
                 }
             }
             //Afficher_Dijkstra(Dijsktra);
-            return (P1,Dijsktra);
+            return (P1,N2,P3,N1,a);
         }
 
         public void Affichage_Dijkstra(List<int> Dijkstra)
@@ -118,92 +130,151 @@ namespace KC
             Console.WriteLine();
             Console.WriteLine($"L'ordre de visite : {orden}");
         }
-        public int[,] Matrice_Dijkstra(int s ,int voisin)
+
+
+        public void Affichage_Ordre_Dijkstra_Noeud(List<Noeud> Dijkstra)
         {
-            int n = g.Sommet.Count;
-            int[,] d = new int[n, n];
-            for(int i = 0;  i < n; i++ )
+            Console.WriteLine();
+            string[] orden = new string[7];
+            foreach (Noeud n in Dijkstra)
             {
-                d[0, i] = s;
-                for (int j = 0; j < n; j++)
+
+                for (int i = 0; i < 7; i++)
                 {
-                    d[j, i] = voisin;
+                    orden[0] = Convert.ToString($"Sommet = {n.Sommet}");
+                    orden[1] = Convert.ToString(n.Couleur);
+                    orden[2] = Convert.ToString(n.date_Dec);
+                    orden[3] = Convert.ToString(n.date_Fin);
+                    orden[4] = Convert.ToString($"Niveau = {n.Niveau}");
+                    orden[5] = Convert.ToString($"Degre = {n.Degre}");
+                    orden[6] = Convert.ToString(n.Pred);
+
+
+                    Console.WriteLine($"Proprietes de {n.Sommet}  : {orden[i]}");
+                }
+                Console.WriteLine();
+            }
+
+            
+        }
+        public List<Noeud> Recherche_Chemin(Noeud source, Noeud arrivee)
+        {
+            List<List<Noeud>> n = Djisktra().Item2;
+            List<Noeud> N = new List<Noeud>();
+            Noeud pred;
+            int index = 0;
+            for(int i = 0; i < n.Count; i++)
+            {
+                int nb_noeuds = n[i].Count;
+                for (int j = 0; j < nb_noeuds;i++)
+                {
+                    if (n[i][nb_noeuds -1] == arrivee)
+                    {
+                        N = n[i];
+                        index = i;
+                    }
                 }
             }
-            return d;
+            while(index > 0)
+            {
+                N.Add(n[index][0]);
+                index--;
+            }
+            N.Add(source);
+            N.Reverse();
+            return N;
+
         }
-        public void Bellman_Ford()
+        #region Bellman-Ford
+        public SortedList<Lien,int> Bellman_Ford()
         {
-            Console.WriteLine(" Choissisez un noeud de départ entre 1 et 34 (compris) : ");
+            Console.WriteLine("Choissisez un noeud de départ entre 1 et 34 (compris) : ");
             Noeud n = new Noeud();
             Lien l = new Lien(n);
             int V = g.Sommet.Count;
-            (bool, int) visite = (false, 0);
-
-            for(int  i = 0; i < V; i++)
+            int Arete = g.AreteList.Count;
+            SortedList<Lien, int> ncycle = new SortedList<Lien, int>();
+            List<int> d = new List<int>(Arete);
+            for (int  i = 0; i < V; i++)
             {
-                foreach(var ar in g.AreteList)
+                for(int j = 0; j < g.AreteList.Count;j++ )
                 {
-                    foreach(var w  in g.Poids)
+                    //foreach(var w in g.Poids)
+                    Noeud u = new Noeud(g.AreteList[j].Item1);
+                    Noeud v = new Noeud(g.AreteList[j].Item2);
+                    Lien y = new Lien(u, v);
+                    int min = int.MaxValue;
+                    if (!Detection_Cycle_Absorbant(u, y.Poids))
                     {
-                        Noeud u = new Noeud(ar.Item1);
-                        Noeud v = new Noeud(ar.Item2);
-                        Maj_Distance(u,v);
-                        
-                        visite.Item2 = u.Sommet;
-                        while(!visite.Item1)
+                        int distance = Maj_Distance(u, v);
+                        if (distance < min)
                         {
-                            visite.Item1 = true;
-                            u.Pred[u.Sommet] = u.Sommet;
+                            min = distance;
                         }
-                        // Verification de l'existence d'un cycle/circuit absorbant
+                        ncycle[y] = min;
+
+
+
                     }
-                    
+
                 }
-            }
+                }
+            
+                
+            
 
             int Maj_Distance(Noeud s1, Noeud s2)
             {
-                int maj = 0;
-                if (l.Calcul_Distance(n, s2) < l.Calcul_Distance(n, s1) + l.Calcul_Poids(s1, s2))
+                int maj = Math.Min(l.Calcul_Poids(n, s2), l.Calcul_Poids(n, s1) + l.Calcul_Poids(s1, s2));
+                if ((maj == l.Calcul_Poids(n, s2)))
                 {
-                    maj = l.Calcul_Distance(n, s1) + l.Calcul_Poids(s1, s2);
+                    
                     s2.Pred[s2.Sommet] = s1.Sommet;
                     //P1.Add(s2.Sommet);
+                    //P3.Add(s2);
+                    s2.Couleur = Color.Red;
+                    s2.date_Fin = s2.Fin();
+                    //Console.WriteLine($"{s2} rajouté à la liste P1");
                 }
                 else
                 {
+                    maj = l.Calcul_Poids(n, s1) + l.Calcul_Poids(s1, s2);
                     //P1.Add(s1.Sommet);
+                    //P3.Add(s1);
+                    s1.Couleur = Color.Red;
+                    s1.date_Fin = s1.Fin();
+                    //Console.WriteLine($"{s1} rajouté à la liste P1");
                 }
                 return maj;
-            }   
-        }
-
-        public void Afficher_Dijkstra(int[,] m)
-        {
-
-            for (int i = 0; i < m.GetLength(0); i++)
-            {
-                Console.WriteLine();
-                int k = 0;
-                while (k < m.GetLength(0))
-                {
-                    Console.Write("==");
-                    k++;
-                }
-
-                Console.WriteLine();
-                for (int j = 0; j < m.GetLength(1); j++)
-                {
-                    string s = Convert.ToString($"|{m[i, j]}");
-
-                    Console.Write(s);
-                }
-                Console.WriteLine();
-
             }
+            bool Detection_Cycle_Absorbant(Noeud u , int p = 0 )
+            {
+                bool detect = false;
+                p = g.Existence_Circuit(u, p).Item3;
+                if ( p < 0)
+                {
+                    detect =
+                g.Existence_Circuit(u, p).Item1;
+                }
+                return detect;
+            }
+            int Comparaison(int a , int b)
+            {
+                if(a < b )
+                {
+                    return a;
+                }
+                if(a == b)
+                {
+                    return (a | b);
+                }
+                return b; 
+            }
+            return ncycle;
         }
 
+        #endregion
+        #region FWR (Floyd-Warshall-Roy)
         public void Affichage_FWR(List<int> FWR)
         {
             string orden = "";
@@ -447,7 +518,8 @@ namespace KC
             return occ;
         }
 
+        #endregion
 
     }
-    
+
 }
