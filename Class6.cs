@@ -171,57 +171,57 @@ namespace KC
              
             List<Noeud> N = new List<Noeud>();
             List<int> N2 = new List<int>();
-            List<int> N3 = new List<int>();
+            List<List<int>> N3 = new List<List<int>>();
             int index_chemin = 0;
-            int  index = 0;
+            int index = 0;
             int nb = n.Item4.Count ;
 
             for(int i = 0; i < nb;i++)
             {
-                if (!n.Item4[i].Contains(arrivee.Sommet) && i < nb )
+                if (n.Item4[i].Contains(arrivee.Sommet))
                 {
-                    n.Item4.RemoveAt(i);
+                    N3.Add(n.Item4[i]);
+                   
                 }
 
             }
-            for (int i = 0; i < nb; i++)
+            for (int j = 0; j < N3.Count; j++)
             {
-                if(n.Item4[i].Contains(arrivee.Sommet))
-                {
+                
                     index_chemin = Min();
-                }
+                
 
             }
            
-            for (int i = 0; i < nb; i++)
+            for (int k = 0; k < N3.Count; k++)
             {
-                if(i == index_chemin)
+                if(k == index_chemin)
                 {
-                    N2.Add(i);
+                    for(int j = 0; j < N3[k].Count;j++)
+                    {
+                        N2.Add(N3[k][j]);
+                    }
+                    
                 }
 
             }
-            for(int i = 0; i < n.Item5.Count;i++)
+            for(int l = 0; l < n.Item5.Count;l++)
             {
-                if(i == N2[0])
+                
+                if (N2[0] == n.Item5[l] )
                 {
-                    index = i;
+                    index = l;
                 }
             }
-            for (int i = 0; i < n.Item5.Count; i++)
-            {
-                while (i != N2[0])
-                {
-                    N2.Add(n.Item5[i]);
-                }
-            }
+            
+            N2.GetRange(0,index);
             N.Reverse();
 
 
             int Min()
             {
                 int min = int.MaxValue;
-                foreach (var chemin in n.Item4)
+                foreach (var chemin in N3)
                 {
                     
                     int longueur = chemin.Count;
