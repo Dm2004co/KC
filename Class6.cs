@@ -207,19 +207,14 @@ namespace KC
             }
             for(int l = 0; l < n.Item5.Count;l++)
             {
-                if(l == 0)
-                {
-                    if (N2[l] == n.Item5[l])
+                    if (N2[0] == n.Item5[l] || N2[0] == arrivee.Sommet)
                     {
                         index = l;
                     }
-                }
-                
-                
             }
             
             N2.GetRange(0,index);
-            N.Reverse();
+            N2.Reverse();
 
 
             int Min()
