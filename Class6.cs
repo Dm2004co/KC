@@ -207,11 +207,15 @@ namespace KC
             }
             for(int l = 0; l < n.Item5.Count;l++)
             {
-                
-                if (N2[0] == n.Item5[l] )
+                if(l == 0)
                 {
-                    index = l;
+                    if (N2[l] == n.Item5[l])
+                    {
+                        index = l;
+                    }
                 }
+                
+                
             }
             
             N2.GetRange(0,index);
