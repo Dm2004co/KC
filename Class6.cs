@@ -14,37 +14,40 @@ namespace KC
     {
         static Graphe g = new Graphe();
         
-        public (List<int>, List<List<Noeud>>,List<Noeud>,List<List<int>>,int) Djisktra()
+        public (List<int>, List<List<Noeud>>,List<Noeud>,List<List<int>>,List<int>) Djisktra()
         {
             Console.WriteLine("Choissisez une source (noeud de depart) entre 1 et 34 (compris) : ");
             int nb = g.Sommet.Count;
             Noeud n = new Noeud();
-            int a =  Convert.ToInt32(Console.ReadLine());
             Lien l = new Lien(n);
             List<int> P1 = new List<int>();
-            List<int> P2 = new List<int>();
+           
             List<int> Q = g.Sommet;
             List<Noeud> P3 = new List<Noeud>();
-            List<Noeud> P4 = new List<Noeud>();
+            List<int> Pred = new List<int>();
             List<List<Noeud>> N2 = new List<List<Noeud>>();
             List<List<int>> N1 = new List<List<int>>();
             int i = 0;
             P1.Add(n.Sommet);
             P3.Add(n);
+            Pred.Add(n.Sommet);
             while (!g.Sommet.Contains(n.Sommet))
             {
                 l.Distance = 0;
             }
             while (Q.Count > 0 )
             {
-                Noeud[] t = new Noeud[nb];
+                List<int> P2 = new List<int>();
+                List<Noeud> P4 = new List<Noeud>();
                 int s1 = Min();
                 Console.WriteLine($"Sommet de distance minimale : {s1}");
                 Noeud y = new Noeud(s1);
                 Q.Remove(s1);
                 P1.Add(s1);
+                P2.Add(s1);
+                Pred.Add(s1);
                 P3.Add(y);
-               
+                P4.Add(y);
                // Console.WriteLine("Q privé de s1");
                 foreach (int voisinage in g.Succ[y.Sommet])
                 {
@@ -63,18 +66,17 @@ namespace KC
                     }
                     
                 }
-                
-                P2 = P1;
-                P4 = P3;
+
+
                 N1.Add(P2);
                 N2.Add(P4);
-                Affichage_Dijkstra(P2);
+                Affichage_Dijkstra(P1);
                 Console.WriteLine();
-                Affichage_Ordre_Dijkstra_Noeud(P4);
+                Affichage_Ordre_Dijkstra_Noeud(P3);
                 Console.WriteLine();
                 P1.Clear();
                 P3.Clear();
-                
+
                 int Maj_Distance(Noeud s1, Noeud s2)
                 {
                     int maj = 0;
@@ -83,7 +85,9 @@ namespace KC
                         maj = l.Calcul_Poids(n, s1) + l.Calcul_Poids(s1, s2);
                         s2.Pred[s2.Sommet] = s1.Sommet;
                         P1.Add(s2.Sommet);
+                        P2.Add(s2.Sommet);
                         P3.Add(s2);
+                        P4.Add(s2);
                         s2.Couleur = Color.Red;
                         s2.date_Fin = s2.Fin();
                         //Console.WriteLine($"{s2} rajouté à la liste P1");
@@ -91,7 +95,9 @@ namespace KC
                     else
                     {
                         P1.Add(s1.Sommet);
+                        P2.Add(s1.Sommet);
                         P3.Add(s1);
+                        P4.Add(s1);
                         s1.Couleur = Color.Red;
                         s1.date_Fin = s1.Fin();
                         //Console.WriteLine($"{s1} rajouté à la liste P1");
@@ -114,9 +120,11 @@ namespace KC
                     }
                     return n.Sommet;
                 }
+                
             }
-            //Afficher_Dijkstra(Dijsktra);
-            return (P1,N2,P3,N1,a);
+
+            Affichage_Dijkstra(Pred);
+            return (P1,N2,P3,N1,Pred);
         }
 
         public void Affichage_Dijkstra(List<int> Dijkstra)
@@ -157,33 +165,77 @@ namespace KC
 
             
         }
-        public List<Noeud> Recherche_Chemin(Noeud source, Noeud arrivee)
+        public (List<Noeud>,List<int>) Recherche_Chemin(Noeud arrivee)
         {
-            List<List<Noeud>> n = Djisktra().Item2;
+            (List<int>, List<List<Noeud>>, List<Noeud>, List<List<int>>,List<int>) n = Djisktra();
+             
             List<Noeud> N = new List<Noeud>();
-            Noeud pred;
-            int index = 0;
-            for(int i = 0; i < n.Count; i++)
+            List<int> N2 = new List<int>();
+            List<int> N3 = new List<int>();
+            int index_chemin = 0;
+            int  index = 0;
+            int nb = n.Item4.Count ;
+
+            for(int i = 0; i < nb;i++)
             {
-                int nb_noeuds = n[i].Count;
-                for (int j = 0; j < nb_noeuds;i++)
+                if (!n.Item4[i].Contains(arrivee.Sommet) && i < nb )
                 {
-                    if (n[i][nb_noeuds -1] == arrivee)
-                    {
-                        N = n[i];
-                        index = i;
-                    }
+                    n.Item4.RemoveAt(i);
+                }
+
+            }
+            for (int i = 0; i < nb; i++)
+            {
+                if(n.Item4[i].Contains(arrivee.Sommet))
+                {
+                    index_chemin = Min();
+                }
+
+            }
+           
+            for (int i = 0; i < nb; i++)
+            {
+                if(i == index_chemin)
+                {
+                    N2.Add(i);
+                }
+
+            }
+            for(int i = 0; i < n.Item5.Count;i++)
+            {
+                if(i == N2[0])
+                {
+                    index = i;
                 }
             }
-            while(index > 0)
+            for (int i = 0; i < n.Item5.Count; i++)
             {
-                N.Add(n[index][0]);
-                index--;
+                while (i != N2[0])
+                {
+                    N2.Add(n.Item5[i]);
+                }
             }
-            N.Add(source);
             N.Reverse();
-            return N;
 
+
+            int Min()
+            {
+                int min = int.MaxValue;
+                foreach (var chemin in n.Item4)
+                {
+                    
+                    int longueur = chemin.Count;
+                    if (longueur < min)
+                    {
+                        min = longueur;
+                       
+                    }
+                        
+                }
+                return min;
+            }
+            return (N,N2);
+            
         }
         #region Bellman-Ford
         public SortedList<Lien,int> Bellman_Ford()
@@ -211,7 +263,7 @@ namespace KC
                         {
                             min = distance;
                         }
-                        ncycle[y] = min;
+                        //ncycle[y] = min;
 
 
 

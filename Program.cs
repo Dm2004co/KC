@@ -282,15 +282,20 @@ Graphe g = new Graphe();
                    
                     case 0: Console.WriteLine("Selection : Noeuds visités à partir d'une source unique (y compris l'ordre de visite) ");
                         pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Djisktra().Item3);
+                        break;
+                    case 1:
+                        Console.WriteLine("Selection : Noeuds visités à partir d'une source unique (y compris l'ordre de visite) ");
+                        Recherche();
                         void Recherche()
                         {
                             Console.WriteLine("Selection : 1 : Recherche du PCC entre deux sommets ");
-                            Noeud source = new Noeud(pcc.Djisktra().Item5);
                             Noeud arrivee = new Noeud();
-                            pcc.Recherche_Chemin(source, arrivee);
+                            //pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Recherche_Chemin(arrivee).Item1);
+                            pcc.Affichage_Dijkstra(pcc.Recherche_Chemin(arrivee).Item2);
                         }
+                        break;
                      
-                            break;
+                           
                 }
                     
                     
