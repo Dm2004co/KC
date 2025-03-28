@@ -123,7 +123,7 @@ namespace KC
                 
             }
 
-            Affichage_Dijkstra(Pred);
+            
             return (P1,N2,P3,N1,Pred);
         }
 
@@ -165,77 +165,86 @@ namespace KC
 
             
         }
-        public (List<Noeud>,List<int>) Recherche_Chemin(Noeud arrivee)
+        public (List<List<Noeud>>, List<List<int>> , List<int>) Recherche_Chemin(Noeud arrivee)
         {
-            (List<int>, List<List<Noeud>>, List<Noeud>, List<List<int>>,List<int>) n = Djisktra();
-             
-            List<Noeud> N = new List<Noeud>();
+            (List<int>, List<List<Noeud>>, List<Noeud>, List<List<int>>, List<int>) n = Djisktra();
+
+            List<List<Noeud>> N = new List<List<Noeud>>();
             List<int> N2 = new List<int>();
             List<List<int>> N3 = new List<List<int>>();
-            int index_chemin = 0;
+            List<int> a = new List<int>();
+            int longueur_chemin = 0;
             int index = 0;
-            int nb = n.Item4.Count ;
+            int nb = n.Item4.Count;
+            int nb_chemins = 0;
 
-            for(int i = 0; i < nb;i++)
+            for (int i = 0; i < nb; i++)
             {
                 if (n.Item4[i].Contains(arrivee.Sommet))
                 {
                     N3.Add(n.Item4[i]);
-                   
                 }
 
             }
+            longueur_chemin = Min();
+            nb_chemins = a.Count;
+
             for (int j = 0; j < N3.Count; j++)
             {
-                
-                    index_chemin = Min();
-                
-
-            }
-           
-            for (int k = 0; k < N3.Count; k++)
-            {
-                if(k == index_chemin)
+                if (longueur_chemin == N3.Count)
                 {
-                    for(int j = 0; j < N3[k].Count;j++)
+                    for (int k = 0; k < N3[j].Count; k++)
                     {
-                        N2.Add(N3[k][j]);
+                        if (nb_chemins > 1)
+                        {
+                            if ((N3[j][0] != arrivee.Sommet))
+                            {
+                                N3.RemoveAt(j);
+                            }
+                                
+                        }
+                        
+
                     }
-                    
+                    N2 = N3[0];
+                    index = n.Item5.IndexOf(N2[0]);
                 }
-
             }
-            for(int l = 0; l < n.Item5.Count;l++)
-            {
-                    if (N2[0] == n.Item5[l] || N2[0] == arrivee.Sommet)
-                    {
-                        index = l;
-                    }
-            }
-            
-            N2.GetRange(0,index);
-            N2.Reverse();
-
-
-            int Min()
-            {
-                int min = int.MaxValue;
-                foreach (var chemin in N3)
+            Console.WriteLine($"La liste des predecesseurs est :  ");
+            n.Item5 = n.Item5.GetRange(0, index);
+            Affichage_Dijkstra(n.Item5);
+            Console.WriteLine();
+                Console.WriteLine($"La longueur du chemin est : {n.Item5.Count + N2.Count} ");
+                int Min()
                 {
-                    
-                    int longueur = chemin.Count;
-                    if (longueur < min)
+                    int min = int.MaxValue;
+                
+                foreach (var chemin in N3)
                     {
-                        min = longueur;
-                       
+                        
+                        int longueur = chemin.Count;
+                    int b = longueur;
+                        if (longueur < min)
+                        {
+                            min = longueur;
+
+                        }
+                        if(min == b)
+                    {
+                        a.Add(longueur);
                     }
                         
+
+                    }
+                    return min;
                 }
-                return min;
+
+
+
+                return (N,N3,N2);
+
             }
-            return (N,N2);
-            
-        }
+        
         #region Bellman-Ford
         public SortedList<Lien,int> Bellman_Ford()
         {

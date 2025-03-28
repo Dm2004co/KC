@@ -292,7 +292,7 @@ Graphe g = new Graphe();
                             Console.WriteLine("Arrivee (entre 1 et 34) : ");
                             Noeud arrivee = new Noeud();
                             //pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Recherche_Chemin(arrivee).Item1);
-                            pcc.Affichage_Dijkstra(pcc.Recherche_Chemin(arrivee).Item2);
+                            pcc.Affichage_Dijkstra(pcc.Recherche_Chemin(arrivee).Item3);
                         }
                         break;
                      
