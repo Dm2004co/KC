@@ -165,11 +165,12 @@ namespace KC
 
             
         }
-        public (List<List<Noeud>>, List<List<int>> , List<int>) Recherche_Chemin(Noeud arrivee)
+        public (List<List<Noeud>>, List<List<int>> , List<Noeud>) Recherche_Chemin(Noeud arrivee)
         {
             (List<int>, List<List<Noeud>>, List<Noeud>, List<List<int>>, List<int>) n = Djisktra();
 
-            List<List<Noeud>> N = new List<List<Noeud>>();
+            List<List<Noeud>> N1 = new List<List<Noeud>>();
+            List<Noeud> N4 = new List<Noeud>();
             List<int> N2 = new List<int>();
             List<List<int>> N3 = new List<List<int>>();
             List<int> a = new List<int>();
@@ -183,6 +184,7 @@ namespace KC
                 if (n.Item4[i].Contains(arrivee.Sommet))
                 {
                     N3.Add(n.Item4[i]);
+                    N1.Add(n.Item2[i]);
                 }
 
             }
@@ -191,15 +193,17 @@ namespace KC
 
             for (int j = 0; j < N3.Count; j++)
             {
+                int nc = N3[j].Count;
                 if (longueur_chemin == N3.Count)
                 {
-                    for (int k = 0; k < N3[j].Count; k++)
+                    for (int k = 0; k < nc; k++)
                     {
                         if (nb_chemins > 1)
                         {
                             if ((N3[j][0] != arrivee.Sommet))
                             {
                                 N3.RemoveAt(j);
+                                N1.RemoveAt(j);
                             }
                                 
                         }
@@ -207,6 +211,7 @@ namespace KC
 
                     }
                     N2 = N3[0];
+                    N4 = N1[0];
                     index = n.Item5.IndexOf(N2[0]);
                 }
             }
@@ -215,6 +220,7 @@ namespace KC
             Affichage_Dijkstra(n.Item5);
             Console.WriteLine();
                 Console.WriteLine($"La longueur du chemin est : {n.Item5.Count + N2.Count} ");
+            Affichage_Dijkstra(N2);
                 int Min()
                 {
                     int min = int.MaxValue;
@@ -227,7 +233,7 @@ namespace KC
                         if (longueur < min)
                         {
                             min = longueur;
-
+                            
                         }
                         if(min == b)
                     {
@@ -241,7 +247,7 @@ namespace KC
 
 
 
-                return (N,N3,N2);
+                return (N1,N3,N4);
 
             }
         

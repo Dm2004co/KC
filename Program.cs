@@ -284,15 +284,33 @@ Graphe g = new Graphe();
                         pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Djisktra().Item3);
                         break;
                     case 1:
-                        Console.WriteLine("Selection : Noeuds visités à partir d'une source unique (y compris l'ordre de visite) ");
-                        Recherche();
+                        Console.WriteLine("Selection : 1 : Recherche du PCC entre deux sommets ");
+                        int recherche = Convert.ToInt32(Console.ReadLine());
+                        switch(recherche)
+                            {
+                            case 0:
+                                Console.WriteLine("Selection : Ordre de visite ");
+                                Recherche();
+                                break; 
+                            case 1:
+                                Console.WriteLine("Selection : Noeuds visités ");
+                                Recherche_Noeud();
+                                break;
+
+                            }
                         void Recherche()
                         {
-                            Console.WriteLine("Selection : 1 : Recherche du PCC entre deux sommets ");
+                            
                             Console.WriteLine("Arrivee (entre 1 et 34) : ");
                             Noeud arrivee = new Noeud();
-                            //pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Recherche_Chemin(arrivee).Item1);
-                            pcc.Affichage_Dijkstra(pcc.Recherche_Chemin(arrivee).Item3);
+                            pcc.Recherche_Chemin(arrivee);
+                        }
+                        void Recherche_Noeud()
+                        {
+                           
+                            Console.WriteLine("Arrivee (entre 1 et 34) : ");
+                            Noeud arrivee = new Noeud();
+                            pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Recherche_Chemin(arrivee).Item3);
                         }
                         break;
                      
