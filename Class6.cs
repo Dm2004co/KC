@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace KC
     internal class PCC
     {
         static Graphe g = new Graphe();
-        
+        #region Dijkstra 
         public (List<int>, List<List<Noeud>>,List<Noeud>,List<List<int>>,List<int>) Djisktra()
         {
             Console.WriteLine("Choissisez une source (noeud de depart) entre 1 et 34 (compris) : ");
@@ -127,6 +128,7 @@ namespace KC
             return (P1,N2,P3,N1,Pred);
         }
 
+
         public void Affichage_Dijkstra(List<int> Dijkstra)
         {
             string orden = "";
@@ -200,6 +202,7 @@ namespace KC
                     {
                         if (nb_chemins > 1)
                         {
+                            
                             if ((N3[j][0] != arrivee.Sommet))
                             {
                                 N3.RemoveAt(j);
@@ -221,6 +224,7 @@ namespace KC
             Console.WriteLine();
                 Console.WriteLine($"La longueur du chemin est : {n.Item5.Count + N2.Count} ");
             Affichage_Dijkstra(N2);
+
                 int Min()
                 {
                     int min = int.MaxValue;
@@ -251,6 +255,7 @@ namespace KC
 
             }
         
+        #endregion 
         #region Bellman-Ford
         public SortedList<Lien,int> Bellman_Ford()
         {

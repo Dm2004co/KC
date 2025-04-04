@@ -284,7 +284,7 @@ Graphe g = new Graphe();
                         pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Djisktra().Item3);
                         break;
                     case 1:
-                        Console.WriteLine("Selection : 1 : Recherche du PCC entre deux sommets ");
+                        Console.WriteLine("Selection : 1 : Recherche du PCC entre deux sommets \n\t 0 : Ordre de visite \n\t 1 : Noeuds visités ");
                         int recherche = Convert.ToInt32(Console.ReadLine());
                         switch(recherche)
                             {
@@ -300,7 +300,6 @@ Graphe g = new Graphe();
                             }
                         void Recherche()
                         {
-                            
                             Console.WriteLine("Arrivee (entre 1 et 34) : ");
                             Noeud arrivee = new Noeud();
                             pcc.Recherche_Chemin(arrivee);
