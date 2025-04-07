@@ -60,7 +60,7 @@ namespace KC
 
                             Noeud voisin = new Noeud(voisinage);
                             int maj =
-                            Maj_Distance(voisin, y);
+                            Maj_Distance(voisin,y);
                             
                             
                         }
@@ -157,7 +157,11 @@ namespace KC
                     orden[3] = Convert.ToString(n.date_Fin);
                     orden[4] = Convert.ToString($"Niveau = {n.Niveau}");
                     orden[5] = Convert.ToString($"Degre = {n.Degre}");
-                    orden[6] = Convert.ToString(n.Pred);
+                    foreach(int p in n.Pred.Values)
+                    {
+                        orden[6] = Convert.ToString(p);
+                    }
+                    
 
 
                     Console.WriteLine($"Proprietes de {n.Sommet}  : {orden[i]}");
@@ -373,7 +377,10 @@ namespace KC
                     orden[3] = Convert.ToString(n.date_Fin);
                     orden[4] = Convert.ToString($"Niveau = {n.Niveau}");
                     orden[5] = Convert.ToString($"Degre = {n.Degre}");
-                    orden[6] = Convert.ToString(n.Pred);
+                    foreach (int p in n.Pred.Values)
+                    {
+                        orden[6] = Convert.ToString($"Predecesseur de {n.Sommet} est : {p}");
+                    }
 
 
                     Console.WriteLine($"Proprietes de {n.Sommet}  : {orden[i]}");
