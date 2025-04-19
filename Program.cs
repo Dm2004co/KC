@@ -267,6 +267,8 @@ Graphe g = new Graphe();
         }
             break;
         case 3: Coloration color = new Coloration();
+        color.Affichage(color.Welsh_Powell());
+        Console.WriteLine($"Nombre chromatique : {color.Nombre_Chromatique}");
                 break;
         case 4:
         PCC pcc = new PCC();

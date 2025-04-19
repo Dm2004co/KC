@@ -52,7 +52,6 @@ namespace KC
             this.pred = Liste_Pred();
             this.degre_max = Deg_Max();
             this.niv = 0;
-            this.noeuds = N();
 
 
         }
@@ -1145,9 +1144,9 @@ namespace KC
 
 
 
-        static void Tri_Croissant(List<int> L)
+        public void Tri_Croissant(List<int> L)
         {
-            static int Partionner(List<int> L, int fin, int debut, int pivot)
+             int Partionner(List<int> L, int fin, int debut, int pivot)
             {
                 int resul;
                 resul = L[pivot];
@@ -1173,7 +1172,7 @@ namespace KC
 
                 return j;
             }
-            static void Quick_Sort(List<int> L, int debut, int fin)
+            void Quick_Sort(List<int> L, int debut, int fin)
             {
                 int pivot;
                 if (debut < fin)
@@ -1187,9 +1186,9 @@ namespace KC
             }
         }
 
-        static void Tri_Croissant(List<Noeud> L)
+          public void Tri_Croissant(List<Noeud> L)
         {
-            static int Partionner(List<Noeud> L, int fin, int debut, int pivot)
+            int Partionner(List<Noeud> L, int fin, int debut, int pivot)
             {
 
                 Noeud resul = new Noeud();
@@ -1216,7 +1215,7 @@ namespace KC
 
                 return j;
             }
-            static void Quick_Sort(List<Noeud> L, int debut, int fin)
+            void Quick_Sort(List<Noeud> L, int debut, int fin)
             {
                 int pivot;
                 if (debut < fin)
@@ -1231,9 +1230,9 @@ namespace KC
         }
 
 
-        static void Tri_Decroissant(List<int> L)
+        public void Tri_Decroissant(List<int> L)
         {
-            static int Partionner(List<int> L, int fin, int debut, int pivot)
+             int Partionner(List<int> L, int fin, int debut, int pivot)
             {
                 int resul;
                 resul = L[pivot];
@@ -1259,7 +1258,7 @@ namespace KC
 
                 return j;
             }
-            static void Quick_Sort(List<int> L, int debut, int fin)
+             void Quick_Sort(List<int> L, int debut, int fin)
             {
                 int pivot;
                 if (debut < fin)
@@ -1273,9 +1272,9 @@ namespace KC
             }
         }
 
-        static void Tri_Decroissant(List<Noeud> L)
+        public void Tri_Decroissant(List<Noeud> L)
         {
-            static int Partionner(List<Noeud> L, int fin, int debut, int pivot)
+             int Partionner(List<Noeud> L, int fin, int debut, int pivot)
             {
                 Noeud resul;
                 resul = L[pivot];
@@ -1301,7 +1300,7 @@ namespace KC
 
                 return j;
             }
-            static void Quick_Sort(List<Noeud> L, int debut, int fin)
+            void Quick_Sort(List<Noeud> L, int debut, int fin)
             {
                 int pivot;
                 if (debut < fin)
@@ -1323,15 +1322,16 @@ namespace KC
         public List<Noeud> N()
         {
             List<Noeud> noeud = new List<Noeud>(Sommet.Count);
-            for (int j = 0; j < noeud.Count; j++)
-            {
+            
                 for (int i = 0; i < Sommet.Count; i++)
                 {
-                    noeud[j] = new Noeud(Sommet[i]);
-                    noeud[j].Degre = noeud[j].Calcul_Degre();
+                    Noeud n = new Noeud(Sommet[i]);
+                    n.Degre = n.Calcul_Degre();
+                    noeud.Add(n);
+                    
 
                 }
-            }
+            
             return noeud;
         }
 

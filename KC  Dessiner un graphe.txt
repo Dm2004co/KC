@@ -1,9 +1,137 @@
 KC : 
+Attentes Livrables 1 (01/03/2025) : 
+
+	
+
+- Partie BDD : Modéle E/A, Schema relationnel, Peuplement des tables et quelques requêtes SELECT mono-tables et simples.
+
+- Partie Graphe : Instanciation d'une structure de graphe (Classe Noeud, Lien, Graphe) à partir des adhérents d'un club associatif, Parcours en profondeur et largeur, détection automatique d'un graphe connexe et d'un circuit, visualisation du graphe.
+
+- Partager avec votre chargé de Td votre espace GitHub où votre livrable 1 doit être déposé.
+
+- Déposer un duplicata de votre livrable sur DVL dans la zone de dépôt Dépôt Livrable 1
+
+
+
+
+
 - Dessiner un graphe 
 
     - Requetes  : 
 1 : Comment dessiner un graphe sur c# avec la classe drawing ?
 2 : Comment dessiner un graphe sur c# avec la classe skiasharp et comment l'ajouter ?
-3 : O�  se trouve l evenement paint ?
+3 : O  se trouve l evenement paint ?
 4 : Comment mettre de la couleur sur  un noeud avec la classe drawing ?
+5 : comment calculer les coordonnees de mes somemets
+- Methodes Complementaires : 
+    - Puissance : 
+     public int[,] Puissance(int n, int[,] m, int[,] p)
+        {
+            int[,] puissance = new int[Matrice_ADJ.GetLength(0), Matrice_ADJ.GetLength(1)];
+            int line = int.Max(m.GetLength(0), p.GetLength(0));
+            int colonne = int.Max(m.GetLength(1), p.GetLength(1));
+            for (int i = 0; i < line; i++)
+            {
+                for (int j = 0; j < colonne; j++)
+                {
+                    if (n < 0)
+                    {
+                        puissance[i, i] = 1;
+                    }
+                    else
+                    {
+                        for(int  k = 2;k < n; k++)
+                        {
+                            puissance[i, j] += m[i, j]; 
+                        }
+                        
+                    }
+                    if (n == 1 && m!=p)
+                    {
+                        puissance[i,j] = m[i, j];
+                    }
+                    else
+                    {
+                        if(n==1)
+                        {
+                            puissance[i,j] = p[i,j];
+                        }
+                       
+                    }
+                   
+                    
+
+
+                }
+            }return puissance;
+
+        }
+        - Multiplication de matrice  :
+        public int[,] Mult(int[,]m , int[,]p)
+        {
+            int[,] matrice = new int[matice_ADJ.GetLength(0), matice_ADJ.GetLength(1)];
+            for (int i = 0; i < matrice.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrice.GetLength(1); j++)
+                {
+                    for (int k = 0; k < matrice.GetLength(0); k++)
+                    {
+                        matrice[i, k] = m[i, k] * p[k, j];
+                    }
+                }
+            }
+            return matrice;
+        }
+    - Nombre de chemins pour un sommet : 
+        public int Nb_2_Chemin(int depart , int arrivee, int longueur)
+        {
+            int[,]M = Puissance(longueur,Matrice_ADJ,Matrice_ADJ);
+            int Nombre_2_Chemin = M[depart+1, arrivee+1];
+            return Nombre_2_Chemin;
+
+        }
+    - Retourner le chemin entre deux sommets : 
+    public Stack>int>Chemin(Noeud depart , Noeud arrivee)
+        {
+            Stack<int>chemin  = new Stack<int>();
+            string a = "BFS";
+            return chemin;
+
+        }
+  
+        - CFC : 
+        
+
+
+
+        - Potentiel liste de succeseurs : Successeur[1] = [6, 7, 12, 22, 11, 5, 18, 4, 8, 2, 3, 20, 32, 14, 9 ];// A verifier +++
+            Successeur[11] = new int[] { 5, 6 };
+            Successeur[5] = new int[] { 7, 11, 22 };
+            Successeur[7] = new int[] { 6, 17 };
+            Successeur[18] = new int[] { 2, 13 };
+            Successeur[4] = [ 2, 10, 13, 14 ];
+            Successeur[2] = new int[] { 8, 14, 20, 31 };
+            Successeur[3] = new int[] { 2, 4, 9, 10, 28, 29 };
+            Successeur[20] = new int[] { 34 };
+            Successeur[9] = new int[] { 31, 34, 33 };
+            Successeur[29] = new int[] { 34 };
+            Successeur[10] = new int[] { 34 };
+            Successeur[32] = new int[] { 25, 33, 34 };
+            Successeur[33] = new int[] { 9, 16, 15, 19, 21, 23, 24, 30, 31, 32 };//A faire
+            Successeur[34] = new int[] { 9, 16, 15, 19, 21, 23, 24, 30, 31, 32, 33 };// A faire
+            Successeur[30] = new int[] { 24, 27 };
+            Successeur[28] = new int[] { 25, 34, 24 };
+            Successeur[24] = new int[] { 26, 28, 30 };
+
+
+  - Aretes reciproques : 
+(2, 1), (3, 1), (4, 1), (2, 4), (3, 4), (1, 5), (1, 6), (1, 7), (5, 7), (6, 7), (1, 8), (3, 8), (4, 8), (2, 8), (1, 9), (3, 9), (3, 10), (1, 11), (5, 11), (6, 11), (1, 12), (1, 13), (4, 13), (1, 14), (2, 14), (3, 14), (4, 14), (6, 17), (7, 17), (1, 18), (2, 18), (1, 20), (2, 20), (5, 22), (1, 22), (24, 26), (25, 26), (3, 28), (24, 28), (25, 28), (3, 29), (24, 30), (27, 30), (2, 31), (9, 31), (1, 32), (25, 32), (26, 32), (29, 32), (9, 33), (16, 33), (15, 33), (19, 33), (21, 33), (23, 33), (24, 33), (30, 33), (31, 33), (32, 33), (9, 34), (16, 34), (15, 34), (19, 34), (21, 34), (23, 34), (24, 34), (30, 34), (31, 34), (32, 34), (33, 34), (10, 34), (20, 34), (27, 34), (28, 34), (29, 34)
+           
+ - Algorithme Sugiyama : 
+/*- Suppression des cycles/circuits 
+- Attribution des niveaux 
+- Red des croisements pour les sommets au niveau
+- Les sommets d'un même niveau ont la même coordonnée y.
+Les coordonnées x sont déterminées en fonction de l'ordre des sommets et de l'espacement souhaité.
+*/
 

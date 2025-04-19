@@ -286,7 +286,7 @@ namespace KC
                         {
                             min = distance;
                         }
-                        //ncycle[y] = min;
+                        ncycle[y] = min;
 
 
 
