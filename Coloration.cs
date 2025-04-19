@@ -14,6 +14,11 @@ namespace KC
         int nombre_chrmatique;
         List<Color> Couleur = [Color.Yellow,Color.Blue,Color.Green,Color.Red,Color.Orange,Color.RebeccaPurple];
          static Graphe g = new Graphe();
+        public Coloration()
+        {
+            nombre_chrmatique = 0;
+            Welsh_Powell();
+        }
         public int Nombre_Chromatique
         {
             get { return nombre_chrmatique; }

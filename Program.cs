@@ -14,7 +14,7 @@ Console.Title = "Les relations des membres d'une association de Karaté";
 Console.WriteLine(value: Console.Title.ToUpper() + Environment.NewLine);
 Graphe g = new Graphe();
 
-    Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : Modes : (Matrices et Listes)  \n 3 : Coloration du graphe \n 4 : PCC et son implementation \n 5 : Visualisation du graphe ");
+    Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : Modes : (Matrices et Listes)  \n 3 : Coloration du graphe et proprietes du graphe(planaire,biparti) \n 4 : PCC et son implementation \n 5 : Visualisation du graphe ");
     int i = Convert.ToInt32(Console.ReadLine());
     switch (i)
     {
@@ -268,6 +268,14 @@ Graphe g = new Graphe();
             break;
         case 3: Coloration color = new Coloration();
         color.Affichage(color.Welsh_Powell());
+        if(color.Nombre_Chromatique <= 4 )
+        {
+            g.Planaire = true;
+        }
+        if(color.Nombre_Chromatique == 2)
+        {
+            g.Biparti = true;
+        }
         Console.WriteLine($"Nombre chromatique : {color.Nombre_Chromatique}");
                 break;
         case 4:

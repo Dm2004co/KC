@@ -102,6 +102,7 @@ namespace KC
         public bool Planaire
         {
             get { return this.planaire; }
+            set { this.planaire = value; }
         }
         /// <summary>
         /// Liste des sommets du graphe 
@@ -165,6 +166,7 @@ namespace KC
         public bool Biparti
         {
             get { return biparti; }
+            set { this.biparti = value; }
         }
         /// <summary>
         /// Listes des niveaux des sommets

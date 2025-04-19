@@ -53,14 +53,14 @@ namespace KC
             }
             paint.Style = SKPaintStyle.Fill;
             SKColor[] colors = new SKColor[nb_Sommets];
-            Random r = new Random();
+            //Random r = new Random();
 
             for(int i = 0; i < colors.Length-1; i++)
             {
                 if (colors[i] == colors[i+1])
                 {
-                    string s = r.Next(0x1000000).ToString("X6");
-                    colors[i] = SKColor.Parse($"#{s}");
+                    //string s = r.Next(0x1000000).ToString("X6");
+                   // colors[i] = SKColor.Parse($"#{s}");
                 }
                 
             }
