@@ -50,11 +50,11 @@ namespace KC
             this.matrice_incidence = Mat_Incidence();
             this.succ = Liste_Succ();
             this.pred = Liste_Pred();
-            this.degre_max = Deg_Max();
             this.niv = 0;
 
 
         }
+        
         public List<(int, int)> Poids
         {
             get { return this.poids; }
@@ -1329,6 +1329,7 @@ namespace KC
                 {
                     Noeud n = new Noeud(Sommet[i]);
                     n.Degre = n.Calcul_Degre();
+                    Degre.Add(n.Degre);
                     noeud.Add(n);
                     
 
@@ -1348,8 +1349,8 @@ namespace KC
         public int Deg_Max()
         {
             int degre_maximum = 0;
-            Tri_Decroissant(this.degre);
-            //degre_maximum = this.degre.Max(); 
+            Tri_Decroissant(degre);
+            degre_maximum = degre.Max(); 
             return degre_maximum;
         }
 
@@ -1493,6 +1494,10 @@ namespace KC
 
             return Nombre_2_Chemin;
 
+        }
+        public void D()
+        {
+            return;
         }
         
     }

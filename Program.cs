@@ -31,9 +31,7 @@ Graphe g = new Graphe();
                 switch (d)
                 {
                     case 0:
-                        
-                        Console.WriteLine($"\n Le graphe est connexe : {g.Connexe()}");
-                        
+                        Console.WriteLine($"\n Le graphe est connexe : {g.Connexe()}");   
                         break;
                     case 1:
                         Console.Write("");
@@ -88,9 +86,7 @@ Graphe g = new Graphe();
                 break;
 
         }
-            
-        
-            
+           
             //g.Simple;
             //g.Complet;
             //g.Regulier;
@@ -209,7 +205,7 @@ Graphe g = new Graphe();
             
             break;
         case 2:
-            Console.WriteLine("Modes : 0 : Liste d'adjacence   \n\t1 : Matrice d'adjacence  \n\t2 : Matrice d'incidence \n\t3 : Liste des Predecesseurs \n\t4 : Listes des Noeuds  \n\t5 : Listes des Poids");//Obligatoire
+            Console.WriteLine("Modes : 0 : Liste d'adjacence   \n\t1 : Matrice d'adjacence  \n\t2 : Matrice d'incidence \n\t3 : Liste des Predecesseurs \n\t4 : Listes des Noeuds  \n\t5 : Listes des Poids \n\t6 : Listes de Degres \n\t7 : Degre Max");//Obligatoire
             int choix = Convert.ToInt32(Console.ReadLine());
             switch (choix)
             {
@@ -257,9 +253,14 @@ Graphe g = new Graphe();
                 
                 case 4:
                         Console.WriteLine("Liste des Noeuds(sommet,degre,niveau) : ");
+                g.Affichage_Ordre_DFS_Noeud(g.N());
+
                 break;
                 case 5:
                         Console.WriteLine("Liste des Poids : ");
+                break;
+            case 6:
+                g.Affichage_Niveau(g.Degre);
                 break;
 
             
@@ -268,14 +269,29 @@ Graphe g = new Graphe();
             break;
         case 3: Coloration color = new Coloration();
         color.Affichage(color.Welsh_Powell());
-        if(color.Nombre_Chromatique <= 4 )
+        Console.WriteLine("Proprietes : 0 : Biparti \n\t 1 : Planaire");
+        int prop = Convert.ToInt32(Console.ReadLine());
+        switch(prop)
         {
-            g.Planaire = true;
+            case 0:
+                Console.WriteLine("Planaire :");
+                if (color.Nombre_Chromatique <= 4)
+                {
+                    g.Planaire = true;
+                    Console.WriteLine(g.Planaire);
+                }
+                break;
+            case 1:
+                Console.WriteLine("Biparti :");
+                if (color.Nombre_Chromatique == 2)
+                {
+                    g.Biparti = true;
+                    Console.WriteLine(g.Biparti);
+                }
+                break;
+
         }
-        if(color.Nombre_Chromatique == 2)
-        {
-            g.Biparti = true;
-        }
+        
         Console.WriteLine($"Nombre chromatique : {color.Nombre_Chromatique}");
                 break;
         case 4:

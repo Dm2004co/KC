@@ -8,8 +8,11 @@ namespace KC
 {
     class ACPM
     {
+        static Graphe g = new Graphe();
         public ACPM()
         {
+            
+           
 
         }
     }
