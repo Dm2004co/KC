@@ -19,6 +19,8 @@ namespace KC
         static Graphe g = new Graphe();
         int sommet;
         SortedList<int, int> pred= new SortedList<int, int>();
+        int d1;
+        int d2;
         int degre;
         Color couleur = new Color();
         int niveau;
@@ -37,7 +39,9 @@ namespace KC
             this.sommet = Insertion_Sommet(imput);
             this.couleur = Color.White;
             this.pred = new SortedList<int,int>(34);
-            this.degre = Calcul_Degre();
+            this.degre = Calcul_Degre().Item1;
+            this.d2 = Calcul_Degre().Item2;
+            this.d1 = Calcul_Degre().Item3;
             this.niveau = 0;
             
         }
@@ -93,6 +97,19 @@ namespace KC
             get { return this.degre; }
             set { this.degre = value; }
         }
+
+        public int D1
+        {
+            get { return this.d1; }
+            set { this.d1 = value; }
+        }
+
+        public int D2
+        {
+            get { return this.d2; }
+            set { this.d2 = value; }
+        }
+
         /// <summary>
         /// Propriete de la Couleur d'un Noeud
         /// </summary>
@@ -160,7 +177,7 @@ namespace KC
         /// Methode pour calculer le Degre d'un Noeud en fct de la Liste des Sucesseurs et des Predecesseurs
         /// </summary>
         /// <returns></returns>
-        public int Calcul_Degre()
+        public (int,int,int) Calcul_Degre()
         {
             int nb_succ = G.Succ[sommet].Count;
             int nb_pred = G.Pred[sommet].Count;
@@ -175,12 +192,22 @@ namespace KC
                     while(nb_pred > 0 &&  nb_succ > 0)
                     {
                         deg++;
-                        nb_succ--;
-                        nb_pred--;
+                        while(nb_pred > 0)
+                        {
+                            d2++;
+                            nb_succ--;
+                        }
+                        while(nb_succ > 0)
+                        {
+                            d1++;
+                            nb_pred--;
+                        }
+                       
+                       
                     }
                 }
             }
-            return deg;
+            return (deg,d2,d1);
         }
 
         #region Dates(Date de Fin et de Decouverte)

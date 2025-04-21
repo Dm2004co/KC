@@ -14,7 +14,7 @@ Console.Title = "Les relations des membres d'une association de Karaté";
 Console.WriteLine(value: Console.Title.ToUpper() + Environment.NewLine);
 Graphe g = new Graphe();
 
-    Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : Modes : (Matrices et Listes)  \n 3 : Coloration du graphe et proprietes du graphe(planaire,biparti) \n 4 : PCC et son implementation \n 5 : Visualisation du graphe ");
+    Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : Modes : (Matrices et Listes)  \n 3 : Coloration du graphe et proprietes du graphe(planaire,biparti) \n 4 : PCC et son implementation \n 5 : Visualisation du graphe \n 6 : ACP(Arbre Couvrant de Poids Minimum)");
     int i = Convert.ToInt32(Console.ReadLine());
     switch (i)
     {
@@ -443,6 +443,7 @@ Graphe g = new Graphe();
         break;
         case 5: Dessin dessin = new Dessin();
         break;
-
+    case 6: ACPM acpm = new ACPM();
+        break;
     
 }

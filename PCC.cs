@@ -485,7 +485,9 @@ namespace KC
 
                 depart.Couleur = Color.Yellow;
                 depart.date_Dec = depart.Decouverte();
-                depart.Degre = depart.Calcul_Degre(); ;
+                depart.Degre = depart.Calcul_Degre().Item1;
+                depart.D2 = depart.Calcul_Degre().Item2;
+                depart.D1 = depart.Calcul_Degre().Item3;
                 //Console.WriteLine($"Debut d'exploration de  : {depart.Sommet}");
                 Noeud_v.Add(depart);
                 //Console.WriteLine($"Noeud :{depart.Sommet} , visité");
@@ -496,7 +498,9 @@ namespace KC
                 while (BFS.Count > 0)
                 {
                     Noeud y = BFS.Dequeue();
-                    y.Degre = y.Calcul_Degre();
+                    y.Degre = y.Calcul_Degre().Item1;
+                    y.D2 = y.Calcul_Degre().Item2;
+                    y.D1 = y.Calcul_Degre().Item3;
                     y.Couleur = Color.Red;
                     y.date_Fin = y.Fin();
                     //Console.WriteLine($"Fin d'exploration de : {y.Sommet}");
@@ -511,7 +515,9 @@ namespace KC
 
                                     Noeud voisin = new Noeud(voisinage);
                                     voisin.Niveau = y.Niveau + 1;
-                                    voisin.Degre = voisin.Calcul_Degre();
+                                    voisin.Degre = voisin.Calcul_Degre().Item1;
+                                    voisin.D2 = voisin.Calcul_Degre().Item2;
+                                    voisin.D1 = voisin.Calcul_Degre().Item3;
                                     for (int i = 0; i < Noeud_v.Count; i++)
                                     {
 
