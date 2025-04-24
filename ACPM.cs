@@ -18,7 +18,7 @@ namespace KC
         List<Noeud> n;
         public ACPM()
         {
-            this.n = g.N();
+            //this.n = g.N();
             this.root = Selection_Root();
             Suppression();
             //Edmonds();

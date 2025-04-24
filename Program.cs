@@ -63,7 +63,7 @@ Graphe g = new Graphe();
                                 Noeud n = new Noeud(g.Sommet[i]);
                                 if((g.Existence_Circuit(n).Item1) == true)
                                 {
-                                   // g.Affichage_Ordre_Circuit((g.Existence_Circuit(n).Item2));
+                                    g.Affichage_Ordre_Circuit(g.Existence_Circuit(n));
                                 }
                                 
                             }
