@@ -1,4 +1,5 @@
 # KC
+## Description technique du projet
 Plusiseurs classes sont disponibles dans ce projet, ayant chacune des rôles précis  : 
 - Graphe ( Implémentation générale du graphe et sa caractérisation )  
 - Noeud ( Caractérisation d'un noeud )
