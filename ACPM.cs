@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -143,7 +143,7 @@ namespace KC
         {
             int e = 0;
             
-            foreach(var n in n)
+            foreach(var element in n)
             {
                 while (e != n.D2)
                 {
